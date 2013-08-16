@@ -1,4 +1,4 @@
-Welcome to mock-cloudsearch documentation!
+Welcome to nozama-cloudsearch documentation!
 =============================================
 
 Contents:
@@ -10,7 +10,7 @@ Contents:
 Quick start
 -----------
 
-The mock-cloudsearch REST service repository checkout contains multiple parts that
+The nozama-cloudsearch REST service repository checkout contains multiple parts that
 get built into eggs. Paver is used to make it appear as one "egg" from the top
 level. This mean setup.py develop | bdist_egg and other commands can be used.
 All contained parts will then have the command run on them.
@@ -29,7 +29,7 @@ Run the server using the default "development.ini" do::
 
 Behind the scenes this will changed into the Service directory. It will then
 run "pserver --reload development.ini". The default port for the service is
-"63188" and you can go to "http://localhost:63188" in your
+"63833" and you can go to "http://localhost:63833" in your
 browser and see the top level status page.
 
 
@@ -74,7 +74,7 @@ Data
 ~~~~
 
 This part provides the business logic and core code behind the cloudsearch
-project. This delivers the namespace "mock.cloudsearch.data" into the
+project. This delivers the namespace "nozama.cloudsearch.data" into the
 environment. The Service builds on this to provide the REST API.
 
 
@@ -82,13 +82,13 @@ Service
 ~~~~~~~
 
 This part provides the Pyramid REST Service egg. This delivers the namespace
-"mock.cloudsearch.service" into the environment. You can run the development
+"nozama.cloudsearch.service" into the environment. You can run the development
 version of the service using paver, as stated in the quick start, or from the
 Service directory directly.
 
 For example::
 
-    cd mock-cloudsearch-service
+    cd nozama-cloudsearch-service
     email_service --conf conf.ini
 
 
@@ -96,20 +96,20 @@ Client
 ~~~~~~
 
 This part provides the python client library the consumes the REST API,
-provided by the Service. This delivers the namespace "mock.cloudsearch.client"
+provided by the Service. This delivers the namespace "nozama.cloudsearch.client"
 into the environment.
 
 A quick test of the client library against a running service is::
 
-    from mock.cloudsearch.client.rest import CloudsearchService
+    from nozama.cloudsearch.client.rest import CloudsearchService
 
-    # If the URL of the service is not provide localhost:63188 is used
+    # If the URL of the service is not provide localhost:63833 is used
     # by default.
     #
-    api = CloudsearchService("http://localhost:63188")
+    api = CloudsearchService("http://localhost:63833")
 
     api.ping()
-    >>> {u'status': u'ok', u'version': u'1.0.0dev', u'name': u'mock-cloudsearch-service'}
+    >>> {u'status': u'ok', u'version': u'1.0.0dev', u'name': u'nozama-cloudsearch-service'}
 
     # Success!
 

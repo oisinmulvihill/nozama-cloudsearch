@@ -42,9 +42,9 @@ import datetime
 year = datetime.datetime.now().date().year
 copyright = u'%s, body Limited.' % year
 
-# Track the mock-cloudsearch-service egg as the client also has this version.
+# Track the nozama-cloudsearch-service egg as the client also has this version.
 import pkg_resources
-ar = pkg_resources.get_distribution('mock-cloudsearch-service')
+ar = pkg_resources.get_distribution('nozama-cloudsearch-service')
 version = ar.version
 release = version
 

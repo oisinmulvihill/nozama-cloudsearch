@@ -7,7 +7,7 @@ See http://paver.github.com/paver for more details on it.
 
 Oisin Mulvihill
 
-2013-08-16T00:03:19
+2013-08-16T14:18:34
 
 """
 import os
@@ -31,13 +31,13 @@ if BASKET:
     sys.stdout.write("Using Environment BASKET '%s'." % BASKET)
 
 
-COMMONDIR = path(os.path.abspath(os.path.join(CWD, "mock-cloudsearch-common")))
+COMMONDIR = path(os.path.abspath(os.path.join(CWD, "nozama-cloudsearch-common")))
 
-SERVICEDIR = path(os.path.abspath(os.path.join(CWD, "mock-cloudsearch-service")))
+SERVICEDIR = path(os.path.abspath(os.path.join(CWD, "nozama-cloudsearch-service")))
 
-CLIENTDIR = path(os.path.abspath(os.path.join(CWD, "mock-cloudsearch-client")))
+CLIENTDIR = path(os.path.abspath(os.path.join(CWD, "nozama-cloudsearch-client")))
 
-MODELDIR = path(os.path.abspath(os.path.join(CWD, "mock-cloudsearch-data")))
+MODELDIR = path(os.path.abspath(os.path.join(CWD, "nozama-cloudsearch-data")))
 
 
 # Paver global options we'll add to:

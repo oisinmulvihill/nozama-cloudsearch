@@ -1,0 +1,3 @@
+include cached_version.json
+include *.txt *.ini *.cfg *.rst
+recursive-include nozama *.ico *.png *.css *.gif *.jpg *.pt *.txt *.mak *.mako *.js *.html *.xml
