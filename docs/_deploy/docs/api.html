@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>REST API For Nozama CloudSearch &mdash; The Cloudsearch Service and client library. 1.0.0dev documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0.0dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="The Cloudsearch Service and client library. 1.0.0dev documentation" href="index.html" />
+    <link rel="next" title="Developer Guide to Project" href="developer.html" />
+    <link rel="prev" title="Welcome to nozama-cloudsearch documentation!" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="developer.html" title="Developer Guide to Project"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to nozama-cloudsearch documentation!"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">The Cloudsearch Service and client library. 1.0.0dev documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="rest-api-for-nozama-cloudsearch">
+<h1>REST API For Nozama CloudSearch<a class="headerlink" href="#rest-api-for-nozama-cloudsearch" title="Permalink to this headline">¶</a></h1>
+<p>Contents:</p>
+<div class="toctree-wrapper compound">
+<ul class="simple">
+</ul>
+</div>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>This documents the CloudSearch API I am implementing and how its called. I
+also document the Nozama specifc REST API used to check the outcomes of earlier
+calls.</p>
+</div>
+<div class="section" id="amazon-cloudsearch">
+<h2>Amazon CloudSearch<a class="headerlink" href="#amazon-cloudsearch" title="Permalink to this headline">¶</a></h2>
+<p>These are the REST API calls I currently implement from Amazon&#8217;s CloudSearch
+API.</p>
+<dl class="docutils">
+<dt>Reference:</dt>
+<dd><ul class="first last simple">
+<li><a class="reference external" href="http://docs.aws.amazon.com/cloudsearch/latest/developerguide/SvcIntro.html">http://docs.aws.amazon.com/cloudsearch/latest/developerguide/SvcIntro.html</a></li>
+</ul>
+</dd>
+</dl>
+<div class="section" id="post-api-version-documents-batch">
+<h3>POST /&lt;api version&gt;/documents/batch<a class="headerlink" href="#post-api-version-documents-batch" title="Permalink to this headline">¶</a></h3>
+<p>This is used to batch load documents for later querying.</p>
+<dl class="docutils">
+<dt>Reference:</dt>
+<dd><ul class="first last simple">
+<li><a class="reference external" href="http://docs.aws.amazon.com/cloudsearch/latest/developerguide/DocumentsBatch.JSON.html#DocumentsBatch.JSON.ResponseProperties">http://docs.aws.amazon.com/cloudsearch/latest/developerguide/DocumentsBatch.JSON.html#DocumentsBatch.JSON.ResponseProperties</a></li>
+</ul>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="nozama-specific">
+<h2>Nozama Specific<a class="headerlink" href="#nozama-specific" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="get-dev-documents">
+<h3>GET /dev/documents<a class="headerlink" href="#get-dev-documents" title="Permalink to this headline">¶</a></h3>
+<p>This will return all documents currently stored on the system. This is useful
+for seeing the results of a batch upload.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># This returns a list of ...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="delete-dev-documents">
+<h3>DELETE /dev/documents<a class="headerlink" href="#delete-dev-documents" title="Permalink to this headline">¶</a></h3>
+<p>This will remove all documents currently stored on the system. This is useful
+for cleaning out before a test run.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># This returns a status dict e.g.:</span>
+<span class="p">{</span>
+    <span class="s">&#39;status&#39;</span><span class="p">:</span> <span class="s">&#39;ok&#39;</span><span class="p">,</span>
+    <span class="s">&#39;message&#39;</span><span class="p">:</span> <span class="s">&#39;Documents Removed OK.&#39;</span><span class="p">,</span>
+    <span class="s">&#39;traceback&#39;</span><span class="p">:</span> <span class="s">&#39;&#39;</span><span class="p">,</span>
+    <span class="s">&#39;error&#39;</span><span class="p">:</span> <span class="s">&#39;&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-ping">
+<h3>GET /ping<a class="headerlink" href="#get-ping" title="Permalink to this headline">¶</a></h3>
+<p>This can be used to check the service is up and running. It will return a JSON
+structure in the form:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s">&#39;status&#39;</span><span class="p">:</span> <span class="s">&#39;ok&#39;</span><span class="p">,</span>
+    <span class="s">&#39;version&#39;</span><span class="p">:</span> <span class="s">&#39;X.Y.Z&#39;</span><span class="p">,</span>
+    <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">&#39;nozama-cloudsearch-service&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">REST API For Nozama CloudSearch</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#amazon-cloudsearch">Amazon CloudSearch</a><ul>
+<li><a class="reference internal" href="#post-api-version-documents-batch">POST /&lt;api version&gt;/documents/batch</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#nozama-specific">Nozama Specific</a><ul>
+<li><a class="reference internal" href="#get-dev-documents">GET /dev/documents</a></li>
+<li><a class="reference internal" href="#delete-dev-documents">DELETE /dev/documents</a></li>
+<li><a class="reference internal" href="#get-ping">GET /ping</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to nozama-cloudsearch documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="developer.html"
+                        title="next chapter">Developer Guide to Project</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/api.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="developer.html" title="Developer Guide to Project"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to nozama-cloudsearch documentation!"
+             >previous</a> |</li>
+        <li><a href="index.html">The Cloudsearch Service and client library. 1.0.0dev documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, body Limited..
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>
