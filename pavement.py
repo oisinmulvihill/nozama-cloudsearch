@@ -31,13 +31,21 @@ if BASKET:
     sys.stdout.write("Using Environment BASKET '%s'." % BASKET)
 
 
-COMMONDIR = path(os.path.abspath(os.path.join(CWD, "nozama-cloudsearch-common")))
+COMMONDIR = path(
+    os.path.abspath(os.path.join(CWD, "nozama-cloudsearch-common"))
+)
 
-SERVICEDIR = path(os.path.abspath(os.path.join(CWD, "nozama-cloudsearch-service")))
+SERVICEDIR = path(
+    os.path.abspath(os.path.join(CWD, "nozama-cloudsearch-service"))
+)
 
-CLIENTDIR = path(os.path.abspath(os.path.join(CWD, "nozama-cloudsearch-client")))
+CLIENTDIR = path(
+    os.path.abspath(os.path.join(CWD, "nozama-cloudsearch-client"))
+)
 
-MODELDIR = path(os.path.abspath(os.path.join(CWD, "nozama-cloudsearch-data")))
+MODELDIR = path(
+    os.path.abspath(os.path.join(CWD, "nozama-cloudsearch-data"))
+)
 
 
 # Paver global options we'll add to:
@@ -137,7 +145,8 @@ def develop(options):
             dev_pkg,
             BASKET
         ))
-        stdout = easy.sh("{python} setup.py develop {BASKET} ".format(
+        stdout = easy.sh(
+            "{python} setup.py develop {BASKET} ".format(
                 python=python,
                 BASKET=BASKET
             ),
@@ -153,14 +162,20 @@ def develop(options):
 def docs(options):
     """Build the latest sphinx documentation.
     """
-    docs = path("docs")
+    docs = path(CWD) / path("docs")
     docs.chdir()
-    stdout = easy.sh("make html ",
-        capture=True,
+    stdout = easy.sh(
+        "make html ", capture=True,
     )
     easy.info(stdout)
     m = "docs/build/html/index.html"
     easy.info("You can now open the index.html in your browser:\n\n\t%s\n" % m)
+
+    os.chdir(CWD)
+    docs_target = "nozama-cloudsearch-service/nozama/cloudsearch/service/docs/"
+    html = "docs/build/html/*"
+    easy.info("Copying built docs into '{}'.".format(docs_target))
+    easy.sh("cp -r {} {}".format(html, docs_target))
 
 
 def build_it(options, target, target_dir=None):
@@ -181,7 +196,8 @@ def build_it(options, target, target_dir=None):
         dev_pkg.chdir()
         easy.info("-- Changing to %s and building %s --" % (dev_pkg, target))
 
-        stdout = easy.sh("{python} setup.py {target} {target_dir} ".format(
+        stdout = easy.sh(
+            "{python} setup.py {target} {target_dir} ".format(
                 python=python,
                 target_dir=target_dir_o,
                 target=target
@@ -217,3 +233,9 @@ def sdist(options):
         target_dir = options.sdist.target_dir
 
     build_it(options, 'sdist', target_dir)
+
+
+@easy.task
+@easy.needs('develop', 'docs')
+def release(options):
+    """Generated docs and apply version number changes."""

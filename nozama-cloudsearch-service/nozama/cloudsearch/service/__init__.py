@@ -3,13 +3,13 @@
 PythonPro REST Service 'nozama-cloudsearch-service'
 
 """
+import os
 import logging
 import httplib
 
 from pyramid.config import Configurator
-# from pyramid.httpexceptions import HTTPNotFound
-# from pyramid.httpexceptions import HTTPBadRequest
 
+from nozama.cloudsearch.service import docs
 from nozama.cloudsearch.service import restfulhelpers
 
 
@@ -35,6 +35,14 @@ def main(global_config, **settings):
         bad_request,
         context='pyramid.httpexceptions.HTTPBadRequest'
     )
+
+    # Host out the sphinx documentation that are generated and put into
+    # the docs dir.
+    d_path = os.path.abspath(docs.__path__[0])
+    config.add_static_view('docs', d_path)
+
+    # Javascript/CSS/etc
+    config.add_static_view('static', 'static', cache_max_age=3600)
 
     # Maps to the status page:
     config.add_route('home', '/')
