@@ -13,7 +13,9 @@
 import sys
 import os
 
-sys.path.insert(0, "../../")
+sys.path.insert(0, "../../nozama-cloudsearch-client")
+sys.path.insert(0, "../../nozama-cloudsearch-data")
+sys.path.insert(0, "../../nozama-cloudsearch-service")
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
