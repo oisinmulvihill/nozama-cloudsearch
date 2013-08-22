@@ -27,7 +27,7 @@ class DB(object):
     def __init__(self, config={}):
         self.log = logging.getLogger("%s.DB" % __name__)
         self.config = config
-        self.db_name = config.get("db_name", "test-db").strip()
+        self.db_name = config.get("db_name", "nozama-cloudsearch").strip()
         self.port = int(config.get("port", 27017))
         self.host = config.get("host", "localhost").strip()
         self._connection = None

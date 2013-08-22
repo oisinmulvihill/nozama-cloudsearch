@@ -9,29 +9,22 @@ from urlparse import urljoin
 
 import requests
 
-#from pp.auth import pwtools
-from nozama.cloudsearch.validate import error
+
+def get_log(e=None):
+    return logging.getLogger("{0}.{1}".format(__name__, e) if e else __name__)
 
 
-def get_log(extra=None):
-    mod = '%s' % __name__
-    if extra:
-        if isinstance(extra, basestring):
-            mod = '{}.{}'.format(__name__, extra)
-    return logging.getLogger(mod)
-
-
-class CloudsearchService(object):
+class CloudSearchService(object):
     """This provides an interface to the REST service for dealing with
     user operations.
     """
-    def __init__(self, uri='http://localhost:63833'):
-        """Set the URI of the CloudsearchService.
+    def __init__(self, uri='http://localhost:15808'):
+        """Set the URI of the CloudSearchService.
 
         :param uri: The base address of the remote service server.
 
         """
-        self.log = get_log('CloudsearchService')
+        self.log = get_log('CloudSearchService')
         self.uri = uri
 
     def ping(self):
@@ -45,3 +38,27 @@ class CloudsearchService(object):
         res = requests.get(urljoin(self.uri, 'ping'))
         res.raise_for_status()
         return json.loads(res.content)
+
+    def remove_all_documents(self):
+        """Called to remove all documents from the system ready for a new test
+        run.
+        """
+        res = requests.delete(urljoin(self.uri, '/dev/documents'))
+        res.raise_for_status()
+        return res.json
+
+    def all_documents(self):
+        """Called to recover all documents stored on the system.
+        """
+        res = requests.get(urljoin(self.uri, '/dev/documents'))
+        res.raise_for_status()
+        return res.json
+
+    def batch_upload(self, documents):
+        """Called to batch load documents into the cloudsearch service.
+        """
+        uri = urljoin(self.uri, '/2013-08-22/documents/batch')
+        res = requests.post(uri)
+        res.raise_for_status()
+
+        return res.json

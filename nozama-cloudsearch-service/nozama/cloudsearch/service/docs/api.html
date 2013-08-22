@@ -85,6 +85,29 @@ API.</p>
 </dl>
 </div>
 </div>
+<div class="section" id="nozama-specific">
+<h2>Nozama Specific<a class="headerlink" href="#nozama-specific" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="get-dev-documents">
+<h3>GET /dev/documents<a class="headerlink" href="#get-dev-documents" title="Permalink to this headline">¶</a></h3>
+<p>This will return all documents currently stored on the system. This is useful
+for seeing the results of a batch upload.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># This returns a list of ...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-ping">
+<h3>GET /ping<a class="headerlink" href="#get-ping" title="Permalink to this headline">¶</a></h3>
+<p>This can be used to check the service is up and running. It will return a JSON
+structure in the form:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s">&#39;status&#39;</span><span class="p">:</span> <span class="s">&#39;ok&#39;</span><span class="p">,</span>
+    <span class="s">&#39;version&#39;</span><span class="p">:</span> <span class="s">&#39;X.Y.Z&#39;</span><span class="p">,</span>
+    <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">&#39;nozama-cloudsearch-service&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 
 
@@ -99,6 +122,11 @@ API.</p>
 <li><a class="reference internal" href="#introduction">Introduction</a></li>
 <li><a class="reference internal" href="#amazon-cloudsearch">Amazon CloudSearch</a><ul>
 <li><a class="reference internal" href="#post-api-version-documents-batch">POST /&lt;api version&gt;/documents/batch</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#nozama-specific">Nozama Specific</a><ul>
+<li><a class="reference internal" href="#get-dev-documents">GET /dev/documents</a></li>
+<li><a class="reference internal" href="#get-ping">GET /ping</a></li>
 </ul>
 </li>
 </ul>

@@ -37,6 +37,7 @@ Description = Summary
 ShortDescription = Summary
 
 needed = [
+    "pytest",
     "evasion-common",
     "decorator",
     "paste",

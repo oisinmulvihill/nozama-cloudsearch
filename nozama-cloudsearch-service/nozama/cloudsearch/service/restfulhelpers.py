@@ -19,7 +19,9 @@ def get_log(e=None):
     return logging.getLogger("{0}.{1}".format(__name__, e) if e else __name__)
 
 
-def status_body(status="ok", message="", error="", traceback="", to_json=True):
+def status_body(
+    status="ok", message="", error="", traceback="", to_json=False
+):
     """Create a JSON response body we will use for error and other situations.
 
     :param status: Default "ok" or "error".
@@ -30,7 +32,7 @@ def status_body(status="ok", message="", error="", traceback="", to_json=True):
 
     :param traceback: Default "" or formatted traceback string.
 
-    :param to_json: Default True, return a JSON string or dict is False.
+    :param to_json: Default False, return a JSON string or dict is False.
 
     the to_json is used in situations where something else will take care
     of to JSON conversion.

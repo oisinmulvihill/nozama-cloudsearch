@@ -9,6 +9,7 @@ import httplib
 
 from pyramid.config import Configurator
 
+from nozama.cloudsearch.data import db
 from nozama.cloudsearch.service import docs
 from nozama.cloudsearch.service import restfulhelpers
 
@@ -20,7 +21,17 @@ def get_log(e=None):
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
     """
+    log = get_log('main')
+
     config = Configurator(settings=settings)
+
+    cfg = dict(
+        db_name=settings.get("mongodb.dbname", "nozama-cloudsearch"),
+        port=int(settings.get("mongodb.port", 27017)),
+        host=settings.get("mongodb.host", "127.0.0.1"),
+    )
+    log.debug("MongoDB config<{0}>".format(cfg))
+    db.init(cfg)
 
     # Custom 404 json response handler. This returns a useful JSON
     # response in the body of the 404.
@@ -46,11 +57,13 @@ def main(global_config, **settings):
 
     # Amazon CloudSearch REST interface routes:
     #
-    config.add_route('documents_batch', '/{api_version}/documents/batch')
+    config.add_route(
+        'documents_batch', '/{api_version}/documents/batch'
+    )
 
     # Testing URL(s) query the results of cloud search operations.
     #
-    config.add_route('dev_documents', '/dev/documents/')
+    config.add_route('dev_documents', '/dev/documents')
 
     # Maps to the status page:
     config.add_route('ping', '/ping')

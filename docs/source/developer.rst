@@ -1,5 +1,5 @@
-Welcome to nozama-cloudsearch documentation!
-=============================================
+Developer Guide to Project
+==========================
 
 Contents:
 
@@ -126,9 +126,3 @@ consumes the REST client library to perform its actions.
 
 
 
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
