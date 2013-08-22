@@ -1,24 +1,49 @@
 # -*- coding: utf-8 -*-
 """
-Setuptools script for nozama-cloudsearch-service (nozama.cloudsearch.service)
+Setuptools script for content-classify-service (content.classify.service)
 
 """
 from setuptools import setup, find_packages
 
+# Get the version from the source or the cached egg version:
+import json
+import ConfigParser
+cp = ConfigParser.ConfigParser()
+try:
+    cp.read('../eggs_version.ini')
+    version = dict(cp.items('default'))['version']
+except:
+    # inside and egg, read the cache version instead.
+    with file("cached_version.json", "r") as fd:
+        version = json.loads(fd.read())['egg_version']
+else:
+    # write out the version so its cached for in egg use:
+    with file("cached_version.json", "w") as fd:
+        fd.write(json.dumps(dict(egg_version=version)))
+
+
 Name = 'nozama-cloudsearch-service'
 ProjectUrl = ""
-Version = "1.0.0dev"
+Version = version
 Author = ''
-AuthorEmail = 'everyone at pythonpro dot co dot uk'
+AuthorEmail = ''
 Maintainer = ''
-Summary = 'Pyramid REST Application for nozama-cloudsearch-service'
+Summary = (
+    'A REST service which implements the Amazon CloudSearch for local testing'
+    'purposes.'
+)
 License = ''
 Description = Summary
 ShortDescription = Summary
 
 needed = [
-    # for docs generationself.
-    'sphinx',
+    "evasion-common",
+    "decorator",
+    "paste",
+    "pyramid",
+    "pyramid_jinja2",
+    "pyramid_beaker",
+    "waitress",
 ]
 
 test_needed = [
@@ -30,6 +55,9 @@ EagerResources = [
     'nozama',
 ]
 
+ProjectScripts = [
+]
+
 PackageData = {
     '': ['*.*'],
 }
@@ -37,7 +65,7 @@ PackageData = {
 # Web Entry points
 EntryPoints = """
 [paste.app_factory]
-      main = nozama.cloudsearch.service:main
+    main = nozama.cloudsearch.service:main
 """
 
 setup(
@@ -57,6 +85,7 @@ setup(
     ],
     keywords='web wsgi bfg pylons pyramid',
     license=License,
+    scripts=ProjectScripts,
     install_requires=needed,
     tests_require=test_needed,
     test_suite=test_suite,
