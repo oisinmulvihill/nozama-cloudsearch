@@ -36,11 +36,7 @@ ShortDescription = Summary
 needed = [
     'evasion-common==1.0.1',
     'requests==0.14',
-<<<<<<< HEAD
     'cmdln',
-=======
-    'cmdln==1.1.2',
->>>>>>> master
 ]
 
 test_needed = [

@@ -5,53 +5,21 @@ Setuptools script for nozama-cloudsearch-service (nozama.cloudsearch.service)
 """
 from setuptools import setup, find_packages
 
-# Get the version from the source or the cached egg version:
-import json
-import ConfigParser
-cp = ConfigParser.ConfigParser()
-try:
-    cp.read('../eggs_version.ini')
-    version = dict(cp.items('default'))['version']
-except:
-    # inside and egg, read the cache version instead.
-    with file("cached_version.json", "r") as fd:
-        version = json.loads(fd.read())['egg_version']
-else:
-    # write out the version so its cached for in egg use:
-    with file("cached_version.json", "w") as fd:
-        fd.write(json.dumps(dict(egg_version=version)))
-
 Name = 'nozama-cloudsearch-service'
 ProjectUrl = ""
-Version = version
+Version = "1.0.0dev"
 Author = ''
-AuthorEmail = 'everyone at body dot co dot uk'
+AuthorEmail = 'everyone at pythonpro dot co dot uk'
 Maintainer = ''
-Summary = 'Tornado REST Application for nozama-cloudsearch-service'
+Summary = 'Pyramid REST Application for nozama-cloudsearch-service'
 License = ''
 Description = Summary
 ShortDescription = Summary
 
 needed = [
-<<<<<<< HEAD
-    'evasion-common=1.0.1',
-=======
-    'evasion-common==1.0.1',
->>>>>>> master
-    'tornado==2.4',
-
-    # We depend on the backend code.
-    'nozama-cloudsearch-common==%s' % version,
-    'nozama-cloudsearch-data==%s' % version,
+    # for docs generationself.
+    'sphinx',
 ]
-
-print """
-
-needed:
-%s
-
-
-""" % needed
 
 test_needed = [
 ]
@@ -62,19 +30,15 @@ EagerResources = [
     'nozama',
 ]
 
-ProjectScripts = [
-]
-
 PackageData = {
     '': ['*.*'],
 }
 
 # Web Entry points
-EntryPoints = {
-    'console_scripts': [
-        'cloudsearch_service = nozama.cloudsearch.service.scripts.main:main',
-    ],
-}
+EntryPoints = """
+[paste.app_factory]
+      main = nozama.cloudsearch.service:main
+"""
 
 setup(
     url=ProjectUrl,
@@ -87,12 +51,12 @@ setup(
     long_description=Description,
     classifiers=[
         "Programming Language :: Python",
-        "Framework :: Tornado",
+        "Framework :: Pylons",
         "Topic :: Internet :: WWW/HTTP",
+        "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
     ],
     keywords='web wsgi bfg pylons pyramid',
     license=License,
-    scripts=ProjectScripts,
     install_requires=needed,
     tests_require=test_needed,
     test_suite=test_suite,
