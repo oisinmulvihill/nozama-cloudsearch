@@ -233,3 +233,9 @@ def sdist(options):
 @easy.needs('develop', 'docs')
 def release(options):
     """Generated docs and apply version number changes."""
+
+
+@easy.task
+@easy.needs('release')
+def install(options):
+    """Generated docs and apply version number changes."""
