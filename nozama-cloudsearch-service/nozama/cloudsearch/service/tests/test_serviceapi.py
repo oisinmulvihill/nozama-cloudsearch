@@ -17,7 +17,7 @@ def test_service_is_running(test_server):
 
     pkg = pkg_resources.get_distribution("nozama-cloudsearch-service")
 
-    print response
+    #print response
 
     assert response["status"] == "ok"
     assert response['name'] == 'nozama-cloudsearch-service'

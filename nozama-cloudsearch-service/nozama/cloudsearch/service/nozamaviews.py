@@ -29,7 +29,7 @@ def documents_batch(request):
 
 
 @view_config(
-    route_name='dev_documents', request_method='POST', renderer='json'
+    route_name='dev_documents', request_method='GET', renderer='json'
 )
 def dev_documents(request):
     """This returns documents which have been batch uploaded.

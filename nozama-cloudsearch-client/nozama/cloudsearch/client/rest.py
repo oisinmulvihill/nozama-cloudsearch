@@ -37,7 +37,7 @@ class CloudSearchService(object):
         """
         res = requests.get(urljoin(self.uri, 'ping'))
         res.raise_for_status()
-        return json.loads(res.content)
+        return res.json
 
     def remove_all_documents(self):
         """Called to remove all documents from the system ready for a new test

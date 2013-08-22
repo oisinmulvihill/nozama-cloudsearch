@@ -1,8 +1,6 @@
 # Makefile for Sphinx documentation
 #
 
-GH_PAGES_SOURCES = source Makefile
-
 # You can set these variables from the command line.
 SPHINXOPTS    =
 SPHINXBUILD   = sphinx-build
@@ -130,5 +128,3 @@ doctest:
 	$(SPHINXBUILD) -b doctest $(ALLSPHINXOPTS) $(BUILDDIR)/doctest
 	@echo "Testing of doctests in the sources finished, look at the " \
 	      "results in $(BUILDDIR)/doctest/output.txt."
-
-include sphinx_deployment.mk
