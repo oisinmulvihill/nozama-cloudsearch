@@ -38,6 +38,7 @@ needed = [
     'evasion-common==1.0.1',
     'requests==0.14',
     'cmdln',
+    'pymongo',
 ]
 
 test_needed = [

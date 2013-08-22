@@ -30,11 +30,6 @@ BASKET = os.environ.get("BASKET", "")
 if BASKET:
     sys.stdout.write("Using Environment BASKET '%s'." % BASKET)
 
-
-COMMONDIR = path(
-    os.path.abspath(os.path.join(CWD, "nozama-cloudsearch-common"))
-)
-
 SERVICEDIR = path(
     os.path.abspath(os.path.join(CWD, "nozama-cloudsearch-service"))
 )
@@ -66,7 +61,6 @@ easy.options(
     ),
 
     DEV_PKGS_IN_DEP_ORDER=[
-        COMMONDIR,
         MODELDIR,
         SERVICEDIR,
         CLIENTDIR,
@@ -174,8 +168,8 @@ def docs(options):
     os.chdir(CWD)
     docs_target = "nozama-cloudsearch-service/nozama/cloudsearch/service/docs/"
     html = "docs/build/html/*"
-    easy.info("Copying built docs into '{}'.".format(docs_target))
-    easy.sh("cp -r {} {}".format(html, docs_target))
+    easy.info("Copying built docs into '{0}'.".format(docs_target))
+    easy.sh("cp -r {0} {1}".format(html, docs_target))
 
 
 def build_it(options, target, target_dir=None):

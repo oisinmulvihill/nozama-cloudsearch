@@ -44,8 +44,16 @@ def main(global_config, **settings):
     # Javascript/CSS/etc
     config.add_static_view('static', 'static', cache_max_age=3600)
 
+    # Amazon CloudSearch REST interface routes:
+    #
+    config.add_route('documents_batch', '/{api_version}/documents/batch')
+
+    # Testing URL(s) query the results of cloud search operations.
+    #
+    config.add_route('dev_documents', '/dev/documents/')
+
     # Maps to the status page:
-    config.add_route('home', '/')
+    config.add_route('ping', '/ping')
 
     # Pick up the views which set up the views automatically:
     #

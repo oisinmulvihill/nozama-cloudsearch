@@ -6,124 +6,34 @@ Contents:
 .. toctree::
    :maxdepth: 3
 
-
-Quick start
------------
-
-The nozama-cloudsearch REST service repository checkout contains multiple parts that
-get built into eggs. Paver is used to make it appear as one "egg" from the top
-level. This mean setup.py develop | bdist_egg and other commands can be used.
-All contained parts will then have the command run on them.
-
-For example, to set up all contained eggs in development mode::
-
-    python setup.py develop
+   api.rst
+   developer.rst
 
 
-Run the server
-~~~~~~~~~~~~~~
+Introduction
+------------
 
-Run the server using the default "development.ini" do::
+The aim of this project is to emulate the Amazon CloudSearch interface for
+local testing purposes. I don't intend this project to be used as a replacement
+for cloud search.
 
-    python setup.py runserver
-
-Behind the scenes this will changed into the Service directory. It will then
-run "pserver --reload development.ini". The default port for the service is
-"63833" and you can go to "http://localhost:63833" in your
-browser and see the top level status page.
-
-
-Project Parts
--------------
-
-docs
-~~~~
-
-The project containing the sphinx documentation for all contained project
-parts. The documentation can be built using paver from the top level of the
-project.
-
-From a development checkout you can do the following::
-
-    $python setup.py  docs
-    ---> pavement.docs
-    make html
-    sphinx-build -b html -d build/doctrees   source build/html
-    Running Sphinx v1.1.3
-    loading pickled environment... done
-    building [html]: targets for 1 source files that are out of date
-    updating environment: 0 added, 1 changed, 0 removed
-    reading sources... [100%] index
-    :
-    etc
-    :
-    Build finished. The HTML pages are in build/html.
-
-    You can now open the index.html in your browser:
-
-        docs/build/html/index.html
-
-    $
-
-You can then run the command to open the newly built docs in Firefox::
-
-    firefox docs/build/html/index.html
+I wanted to test a platfom that was hardcoded to use only cloudsearch. There
+was no way I could change the code in question. I was also unable to get other
+instances due to budget constraints. I looked around for alternatives and found
+none I could get working on CentOS.
 
 
-Data
-~~~~
+Alternative projects
+~~~~~~~~~~~~~~~~~~~~~
 
-This part provides the business logic and core code behind the cloudsearch
-project. This delivers the namespace "nozama.cloudsearch.data" into the
-environment. The Service builds on this to provide the REST API.
+I came across Groonga CloudSearch which implements a local instance of Amazon
+CloudSearch. I tried hard to get it to work on CentOS and Ubuntu. Sadly it
+didn't work for me. Its NodeJS codebase needs updating. Something I don't have
+the time to learn and try.
 
+It may be worth keeping and eye on incase it comes to life again.
 
-Service
-~~~~~~~
-
-This part provides the Pyramid REST Service egg. This delivers the namespace
-"nozama.cloudsearch.service" into the environment. You can run the development
-version of the service using paver, as stated in the quick start, or from the
-Service directory directly.
-
-For example::
-
-    cd nozama-cloudsearch-service
-    email_service --conf conf.ini
-
-
-Client
-~~~~~~
-
-This part provides the python client library the consumes the REST API,
-provided by the Service. This delivers the namespace "nozama.cloudsearch.client"
-into the environment.
-
-A quick test of the client library against a running service is::
-
-    from nozama.cloudsearch.client.rest import CloudsearchService
-
-    # If the URL of the service is not provide localhost:63833 is used
-    # by default.
-    #
-    api = CloudsearchService("http://localhost:63833")
-
-    api.ping()
-    >>> {u'status': u'ok', u'version': u'1.0.0dev', u'name': u'nozama-cloudsearch-service'}
-
-    # Success!
-
-
-Tools
------
-
-cloudsearch-admin
-~~~~~~~~~~~~~~~
-
-The Client egg also sets up the cloudsearch-admin command line admin tool. This
-is used to perform various adminstration activities on a running Service. It
-consumes the REST client library to perform its actions.
-
+ * http://gcs.groonga.org/docs/
 
 
 Indices and tables

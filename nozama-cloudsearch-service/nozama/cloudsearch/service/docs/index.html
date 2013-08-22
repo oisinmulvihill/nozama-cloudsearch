@@ -23,7 +23,8 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="The Cloudsearch Service and client library. 1.0.0dev documentation" href="#" /> 
+    <link rel="top" title="The Cloudsearch Service and client library. 1.0.0dev documentation" href="#" />
+    <link rel="next" title="REST API For Nozama CloudSearch" href="api.html" /> 
   </head>
   <body>
     <div class="related">
@@ -32,6 +33,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="api.html" title="REST API For Nozama CloudSearch"
+             accesskey="N">next</a> |</li>
         <li><a href="#">The Cloudsearch Service and client library. 1.0.0dev documentation</a> &raquo;</li> 
       </ul>
     </div>  
@@ -45,105 +49,57 @@
 <h1>Welcome to nozama-cloudsearch documentation!<a class="headerlink" href="#welcome-to-nozama-cloudsearch-documentation" title="Permalink to this headline">¶</a></h1>
 <p>Contents:</p>
 <div class="toctree-wrapper compound">
-<ul class="simple">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">REST API For Nozama CloudSearch</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#amazon-cloudsearch">Amazon CloudSearch</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.html#post-api-version-documents-batch">POST /&lt;api version&gt;/documents/batch</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="developer.html">Welcome to nozama-cloudsearch documentation!</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="developer.html#quick-start">Quick start</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="developer.html#run-the-server">Run the server</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="developer.html#project-parts">Project Parts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="developer.html#docs">docs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="developer.html#data">Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="developer.html#service">Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="developer.html#client">Client</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="developer.html#tools">Tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="developer.html#cloudsearch-admin">cloudsearch-admin</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="developer.html#indices-and-tables">Indices and tables</a></li>
 </ul>
 </div>
-<div class="section" id="quick-start">
-<h2>Quick start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h2>
-<p>The nozama-cloudsearch REST service repository checkout contains multiple parts that
-get built into eggs. Paver is used to make it appear as one &#8220;egg&#8221; from the top
-level. This mean setup.py develop | bdist_egg and other commands can be used.
-All contained parts will then have the command run on them.</p>
-<p>For example, to set up all contained eggs in development mode:</p>
-<div class="highlight-python"><pre>python setup.py develop</pre>
-</div>
-<div class="section" id="run-the-server">
-<h3>Run the server<a class="headerlink" href="#run-the-server" title="Permalink to this headline">¶</a></h3>
-<p>Run the server using the default &#8220;development.ini&#8221; do:</p>
-<div class="highlight-python"><pre>python setup.py runserver</pre>
-</div>
-<p>Behind the scenes this will changed into the Service directory. It will then
-run &#8220;pserver &#8211;reload development.ini&#8221;. The default port for the service is
-&#8220;63833&#8221; and you can go to &#8220;<a class="reference external" href="http://localhost:63833">http://localhost:63833</a>&#8221; in your
-browser and see the top level status page.</p>
-</div>
-</div>
-<div class="section" id="project-parts">
-<h2>Project Parts<a class="headerlink" href="#project-parts" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="docs">
-<h3>docs<a class="headerlink" href="#docs" title="Permalink to this headline">¶</a></h3>
-<p>The project containing the sphinx documentation for all contained project
-parts. The documentation can be built using paver from the top level of the
-project.</p>
-<p>From a development checkout you can do the following:</p>
-<div class="highlight-python"><pre>$python setup.py  docs
----&gt; pavement.docs
-make html
-sphinx-build -b html -d build/doctrees   source build/html
-Running Sphinx v1.1.3
-loading pickled environment... done
-building [html]: targets for 1 source files that are out of date
-updating environment: 0 added, 1 changed, 0 removed
-reading sources... [100%] index
-:
-etc
-:
-Build finished. The HTML pages are in build/html.
-
-You can now open the index.html in your browser:
-
-    docs/build/html/index.html
-
-$</pre>
-</div>
-<p>You can then run the command to open the newly built docs in Firefox:</p>
-<div class="highlight-python"><pre>firefox docs/build/html/index.html</pre>
-</div>
-</div>
-<div class="section" id="data">
-<h3>Data<a class="headerlink" href="#data" title="Permalink to this headline">¶</a></h3>
-<p>This part provides the business logic and core code behind the cloudsearch
-project. This delivers the namespace &#8220;nozama.cloudsearch.data&#8221; into the
-environment. The Service builds on this to provide the REST API.</p>
-</div>
-<div class="section" id="service">
-<h3>Service<a class="headerlink" href="#service" title="Permalink to this headline">¶</a></h3>
-<p>This part provides the Pyramid REST Service egg. This delivers the namespace
-&#8220;nozama.cloudsearch.service&#8221; into the environment. You can run the development
-version of the service using paver, as stated in the quick start, or from the
-Service directory directly.</p>
-<p>For example:</p>
-<div class="highlight-python"><pre>cd nozama-cloudsearch-service
-email_service --conf conf.ini</pre>
-</div>
-</div>
-<div class="section" id="client">
-<h3>Client<a class="headerlink" href="#client" title="Permalink to this headline">¶</a></h3>
-<p>This part provides the python client library the consumes the REST API,
-provided by the Service. This delivers the namespace &#8220;nozama.cloudsearch.client&#8221;
-into the environment.</p>
-<p>A quick test of the client library against a running service is:</p>
-<div class="highlight-python"><pre>from nozama.cloudsearch.client.rest import CloudsearchService
-
-# If the URL of the service is not provide localhost:63833 is used
-# by default.
-#
-api = CloudsearchService("http://localhost:63833")
-
-api.ping()
-&gt;&gt;&gt; {u'status': u'ok', u'version': u'1.0.0dev', u'name': u'nozama-cloudsearch-service'}
-
-# Success!</pre>
-</div>
-</div>
-</div>
-<div class="section" id="tools">
-<h2>Tools<a class="headerlink" href="#tools" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="cloudsearch-admin">
-<h3>cloudsearch-admin<a class="headerlink" href="#cloudsearch-admin" title="Permalink to this headline">¶</a></h3>
-<p>The Client egg also sets up the cloudsearch-admin command line admin tool. This
-is used to perform various adminstration activities on a running Service. It
-consumes the REST client library to perform its actions.</p>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>The aim of this project is to emulate the Amazon CloudSearch interface for
+local testing purposes. I don&#8217;t intend this project to be used as a replacement
+for cloud search.</p>
+<p>I wanted to test a platfom that was hardcoded to use only cloudsearch. There
+was no way I could change the code in question. I was also unable to get other
+instances due to budget constraints. I looked around for alternatives and found
+none I could get working on CentOS.</p>
+<div class="section" id="alternative-projects">
+<h3>Alternative projects<a class="headerlink" href="#alternative-projects" title="Permalink to this headline">¶</a></h3>
+<p>I came across Groonga CloudSearch which implements a local instance of Amazon
+CloudSearch. I tried hard to get it to work on CentOS and Ubuntu. Sadly it
+didn&#8217;t work for me. Its NodeJS codebase needs updating. Something I don&#8217;t have
+the time to learn and try.</p>
+<p>It may be worth keeping and eye on incase it comes to life again.</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference external" href="http://gcs.groonga.org/docs/">http://gcs.groonga.org/docs/</a></li>
+</ul>
+</div></blockquote>
 </div>
 </div>
 </div>
@@ -165,19 +121,8 @@ consumes the REST client library to perform its actions.</p>
   <h3><a href="#">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Welcome to nozama-cloudsearch documentation!</a><ul>
-<li><a class="reference internal" href="#quick-start">Quick start</a><ul>
-<li><a class="reference internal" href="#run-the-server">Run the server</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#project-parts">Project Parts</a><ul>
-<li><a class="reference internal" href="#docs">docs</a></li>
-<li><a class="reference internal" href="#data">Data</a></li>
-<li><a class="reference internal" href="#service">Service</a></li>
-<li><a class="reference internal" href="#client">Client</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#tools">Tools</a><ul>
-<li><a class="reference internal" href="#cloudsearch-admin">cloudsearch-admin</a></li>
+<li><a class="reference internal" href="#introduction">Introduction</a><ul>
+<li><a class="reference internal" href="#alternative-projects">Alternative projects</a></li>
 </ul>
 </li>
 </ul>
@@ -185,6 +130,9 @@ consumes the REST client library to perform its actions.</p>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 </ul>
 
+  <h4>Next topic</h4>
+  <p class="topless"><a href="api.html"
+                        title="next chapter">REST API For Nozama CloudSearch</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/index.txt"
@@ -213,6 +161,9 @@ consumes the REST client library to perform its actions.</p>
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="api.html" title="REST API For Nozama CloudSearch"
+             >next</a> |</li>
         <li><a href="#">The Cloudsearch Service and client library. 1.0.0dev documentation</a> &raquo;</li> 
       </ul>
     </div>
