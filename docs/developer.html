@@ -1,0 +1,225 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Developer Guide to Project &mdash; The Cloudsearch Service and client library. 1.0.0dev documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0.0dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="The Cloudsearch Service and client library. 1.0.0dev documentation" href="index.html" />
+    <link rel="prev" title="REST API For Nozama CloudSearch" href="api.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="api.html" title="REST API For Nozama CloudSearch"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">The Cloudsearch Service and client library. 1.0.0dev documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="developer-guide-to-project">
+<h1>Developer Guide to Project<a class="headerlink" href="#developer-guide-to-project" title="Permalink to this headline">¶</a></h1>
+<p>Contents:</p>
+<div class="toctree-wrapper compound">
+<ul class="simple">
+</ul>
+</div>
+<div class="section" id="quick-start">
+<h2>Quick start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h2>
+<p>The nozama-cloudsearch REST service repository checkout contains multiple parts
+that get built into eggs. Paver is used to make it appear as one &#8220;egg&#8221; from the
+top level. This mean setup.py develop | bdist_egg and other commands can be
+used. All contained parts will then have the command run on them.</p>
+<p>For example, to set up all contained eggs in development mode:</p>
+<div class="highlight-python"><pre>python setup.py develop</pre>
+</div>
+<div class="section" id="run-the-server">
+<h3>Run the server<a class="headerlink" href="#run-the-server" title="Permalink to this headline">¶</a></h3>
+<p>Run the server using the default &#8220;development.ini&#8221; do:</p>
+<div class="highlight-python"><pre>python setup.py runserver</pre>
+</div>
+<p>Behind the scenes this will changed into the Service directory. It will then
+run &#8220;pserver &#8211;reload development.ini&#8221;. The default port for the service is
+&#8220;63833&#8221; and you can go to &#8220;<a class="reference external" href="http://localhost:63833">http://localhost:63833</a>&#8221; in your
+browser and see the top level status page.</p>
+</div>
+</div>
+<div class="section" id="project-parts">
+<h2>Project Parts<a class="headerlink" href="#project-parts" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="docs">
+<h3>docs<a class="headerlink" href="#docs" title="Permalink to this headline">¶</a></h3>
+<p>The project containing the sphinx documentation for all contained project
+parts. The documentation can be built using paver from the top level of the
+project.</p>
+<p>From a development checkout you can do the following:</p>
+<div class="highlight-python"><pre>$python setup.py  docs
+---&gt; pavement.docs
+make html
+sphinx-build -b html -d build/doctrees   source build/html
+Running Sphinx v1.1.3
+loading pickled environment... done
+building [html]: targets for 1 source files that are out of date
+updating environment: 0 added, 1 changed, 0 removed
+reading sources... [100%] index
+:
+etc
+:
+Build finished. The HTML pages are in build/html.
+
+You can now open the index.html in your browser:
+
+    docs/build/html/index.html
+
+$</pre>
+</div>
+<p>You can then run the command to open the newly built docs in Firefox:</p>
+<div class="highlight-python"><pre>firefox docs/build/html/index.html</pre>
+</div>
+</div>
+<div class="section" id="data">
+<h3>Data<a class="headerlink" href="#data" title="Permalink to this headline">¶</a></h3>
+<p>This part provides the business logic and core code behind the cloudsearch
+project. This delivers the namespace &#8220;nozama.cloudsearch.data&#8221; into the
+environment. The Service builds on this to provide the REST API.</p>
+</div>
+<div class="section" id="service">
+<h3>Service<a class="headerlink" href="#service" title="Permalink to this headline">¶</a></h3>
+<p>This part provides the Pyramid REST Service egg. This delivers the namespace
+&#8220;nozama.cloudsearch.service&#8221; into the environment. You can run the development
+version of the service using paver, as stated in the quick start, or from the
+Service directory directly.</p>
+<p>For example:</p>
+<div class="highlight-python"><pre>cd nozama-cloudsearch-service
+pserve --reload development.ini</pre>
+</div>
+</div>
+<div class="section" id="client">
+<h3>Client<a class="headerlink" href="#client" title="Permalink to this headline">¶</a></h3>
+<p>This part provides the python client library the consumes the REST API,
+provided by the Service. This delivers the namespace &#8220;nozama.cloudsearch.client&#8221;
+into the environment.</p>
+<p>A quick test of the client library against a running service is:</p>
+<div class="highlight-python"><pre>from nozama.cloudsearch.client.rest import CloudsearchService
+
+# If the URL of the service is not provide localhost:63833 is used
+# by default.
+#
+api = CloudsearchService("http://localhost:63833")
+
+api.ping()
+&gt;&gt;&gt; {u'status': u'ok', u'version': u'1.0.0dev', u'name': u'nozama-cloudsearch-service'}
+
+# Success!</pre>
+</div>
+</div>
+</div>
+<div class="section" id="tools">
+<h2>Tools<a class="headerlink" href="#tools" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="cloudsearch-admin">
+<h3>cloudsearch-admin<a class="headerlink" href="#cloudsearch-admin" title="Permalink to this headline">¶</a></h3>
+<p>The Client egg also sets up the cloudsearch-admin command line admin tool. This
+is used to perform various adminstration activities on a running Service. It
+consumes the REST client library to perform its actions.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Developer Guide to Project</a><ul>
+<li><a class="reference internal" href="#quick-start">Quick start</a><ul>
+<li><a class="reference internal" href="#run-the-server">Run the server</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#project-parts">Project Parts</a><ul>
+<li><a class="reference internal" href="#docs">docs</a></li>
+<li><a class="reference internal" href="#data">Data</a></li>
+<li><a class="reference internal" href="#service">Service</a></li>
+<li><a class="reference internal" href="#client">Client</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#tools">Tools</a><ul>
+<li><a class="reference internal" href="#cloudsearch-admin">cloudsearch-admin</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="api.html"
+                        title="previous chapter">REST API For Nozama CloudSearch</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/developer.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="api.html" title="REST API For Nozama CloudSearch"
+             >previous</a> |</li>
+        <li><a href="index.html">The Cloudsearch Service and client library. 1.0.0dev documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, body Limited..
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>
