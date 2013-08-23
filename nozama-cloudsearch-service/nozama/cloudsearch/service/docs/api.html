@@ -24,7 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="The Cloudsearch Service and client library. 1.0.0dev documentation" href="index.html" />
-    <link rel="next" title="Welcome to nozama-cloudsearch documentation!" href="developer.html" />
+    <link rel="next" title="Developer Guide to Project" href="developer.html" />
     <link rel="prev" title="Welcome to nozama-cloudsearch documentation!" href="index.html" /> 
   </head>
   <body>
@@ -35,7 +35,7 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="developer.html" title="Welcome to nozama-cloudsearch documentation!"
+          <a href="developer.html" title="Developer Guide to Project"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="index.html" title="Welcome to nozama-cloudsearch documentation!"
@@ -95,6 +95,20 @@ for seeing the results of a batch upload.</p>
 </pre></div>
 </div>
 </div>
+<div class="section" id="delete-dev-documents">
+<h3>DELETE /dev/documents<a class="headerlink" href="#delete-dev-documents" title="Permalink to this headline">¶</a></h3>
+<p>This will remove all documents currently stored on the system. This is useful
+for cleaning out before a test run.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># This returns a status dict e.g.:</span>
+<span class="p">{</span>
+    <span class="s">&#39;status&#39;</span><span class="p">:</span> <span class="s">&#39;ok&#39;</span><span class="p">,</span>
+    <span class="s">&#39;message&#39;</span><span class="p">:</span> <span class="s">&#39;Documents Removed OK.&#39;</span><span class="p">,</span>
+    <span class="s">&#39;traceback&#39;</span><span class="p">:</span> <span class="s">&#39;&#39;</span><span class="p">,</span>
+    <span class="s">&#39;error&#39;</span><span class="p">:</span> <span class="s">&#39;&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="get-ping">
 <h3>GET /ping<a class="headerlink" href="#get-ping" title="Permalink to this headline">¶</a></h3>
 <p>This can be used to check the service is up and running. It will return a JSON
@@ -126,6 +140,7 @@ structure in the form:</p>
 </li>
 <li><a class="reference internal" href="#nozama-specific">Nozama Specific</a><ul>
 <li><a class="reference internal" href="#get-dev-documents">GET /dev/documents</a></li>
+<li><a class="reference internal" href="#delete-dev-documents">DELETE /dev/documents</a></li>
 <li><a class="reference internal" href="#get-ping">GET /ping</a></li>
 </ul>
 </li>
@@ -138,7 +153,7 @@ structure in the form:</p>
                         title="previous chapter">Welcome to nozama-cloudsearch documentation!</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="developer.html"
-                        title="next chapter">Welcome to nozama-cloudsearch documentation!</a></p>
+                        title="next chapter">Developer Guide to Project</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/api.txt"
@@ -168,7 +183,7 @@ structure in the form:</p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="developer.html" title="Welcome to nozama-cloudsearch documentation!"
+          <a href="developer.html" title="Developer Guide to Project"
              >next</a> |</li>
         <li class="right" >
           <a href="index.html" title="Welcome to nozama-cloudsearch documentation!"

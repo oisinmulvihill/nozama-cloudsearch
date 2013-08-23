@@ -49,6 +49,23 @@ for seeing the results of a batch upload.
     # This returns a list of ...
 
 
+DELETE /dev/documents
+~~~~~~~~~~~~~~~~~~~~~
+
+This will remove all documents currently stored on the system. This is useful
+for cleaning out before a test run.
+
+.. code-block:: python
+
+    # This returns a status dict e.g.:
+    {
+        'status': 'ok',
+        'message': 'Documents Removed OK.',
+        'traceback': '',
+        'error': ''
+    }
+
+
 GET /ping
 ~~~~~~~~~
 
