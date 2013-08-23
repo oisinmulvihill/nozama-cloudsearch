@@ -28,7 +28,20 @@ Reference:
 POST /<api version>/documents/batch
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This is used to batch load documents for later querying.
+This is used to batch load documents for later querying. This loads documents
+from the Amazon SDF and adds/removes from mongo accordingly.
+
+This will return a JSON reponse property:
+
+    .. code-block:: python
+
+        rc = dict(
+            status='ok',
+            adds=0+,
+            deletes=0+,
+            error='',
+            warning='',
+        )
 
 Reference:
  * http://docs.aws.amazon.com/cloudsearch/latest/developerguide/DocumentsBatch.JSON.html#DocumentsBatch.JSON.ResponseProperties

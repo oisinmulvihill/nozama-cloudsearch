@@ -39,7 +39,7 @@ class CloudSearchService(object):
         res.raise_for_status()
         return res.json
 
-    def remove_all_documents(self):
+    def remove_all(self):
         """Called to remove all documents from the system ready for a new test
         run.
         """
@@ -58,7 +58,8 @@ class CloudSearchService(object):
         """Called to batch load documents into the cloudsearch service.
         """
         uri = urljoin(self.uri, '/2013-08-22/documents/batch')
-        res = requests.post(uri)
+        documents = json.dumps(documents)
+        res = requests.post(uri, data=documents)
         res.raise_for_status()
 
         return res.json

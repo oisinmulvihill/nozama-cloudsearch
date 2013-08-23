@@ -7,7 +7,9 @@ import logging
 
 from pyramid.view import view_config
 
+from nozama.cloudsearch.data import document
 from nozama.cloudsearch.service.restfulhelpers import status_body
+
 
 def get_log(e=None):
     return logging.getLogger("{0}.{1}".format(__name__, e) if e else __name__)
@@ -25,7 +27,11 @@ def documents_batch(request):
     api_version = request.matchdict['api_version']
     log.debug("Received from client API Version <{0}>".format(api_version))
 
-    return []
+    rc = document.load(request.json_body)
+
+    log.debug("Document Batch response <{0}>".format(rc))
+
+    return rc
 
 
 @view_config(
@@ -35,15 +41,26 @@ def dev_documents(request):
     """This returns documents which have been batch uploaded.
 
     """
-    return []
+    log = get_log("dev_documents")
+
+    log.info("Returning all stored documents.")
+
+    return document.all()
 
 
 @view_config(
     route_name='dev_documents', request_method='DELETE', renderer='json'
 )
-def remove_all_docs(request):
+def remove_all(request):
     """This remove all stored documents from the system ready for a new test
     run.
 
     """
+    log = get_log("remove_all")
+
+    log.info("Removing all docs.")
+    document.remove_all()
+
+    log.info("All docs removed ok.")
+
     return status_body(message="Documents Removed OK.")

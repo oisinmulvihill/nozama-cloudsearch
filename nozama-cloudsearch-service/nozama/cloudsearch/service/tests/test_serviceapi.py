@@ -27,7 +27,7 @@ def test_service_is_running(test_server):
 def test_batch_document_upload_add(test_server):
     """Test the /documents/batch API.
     """
-    test_server.api.remove_all_documents()
+    test_server.api.remove_all()
     assert test_server.api.all_documents() == []
 
     # upload and example document
@@ -57,4 +57,16 @@ def test_batch_document_upload_add(test_server):
     ]
     test_server.api.batch_upload(example_sdf)
 
-    assert test_server.api.all_documents() == [doc]
+    found = test_server.api.all_documents()
+
+    assert len(found) == 1
+    assert found[0]['id'] == '1246'
+    assert found[0]['_id'] == '1246'
+    assert found[0]['lang'] == 'en'
+    # type should have been stripped:
+    assert 'type' not in found[0]
+    assert found[0]['version'] == '1376497963'
+    assert found[0]['fields']['name'] == "Pro Quad Clamp Purple"
+
+    test_server.api.remove_all()
+    assert len(test_server.api.all_documents()) == 0

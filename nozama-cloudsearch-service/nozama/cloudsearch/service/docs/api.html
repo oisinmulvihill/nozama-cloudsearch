@@ -75,7 +75,20 @@ API.</p>
 </dl>
 <div class="section" id="post-api-version-documents-batch">
 <h3>POST /&lt;api version&gt;/documents/batch<a class="headerlink" href="#post-api-version-documents-batch" title="Permalink to this headline">¶</a></h3>
-<p>This is used to batch load documents for later querying.</p>
+<p>This is used to batch load documents for later querying. This loads documents
+from the Amazon SDF and adds/removes from mongo accordingly.</p>
+<p>This will return a JSON reponse property:</p>
+<blockquote>
+<div><div class="highlight-python"><div class="highlight"><pre><span class="n">rc</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+    <span class="n">status</span><span class="o">=</span><span class="s">&#39;ok&#39;</span><span class="p">,</span>
+    <span class="n">adds</span><span class="o">=</span><span class="mi">0</span><span class="o">+</span><span class="p">,</span>
+    <span class="n">deletes</span><span class="o">=</span><span class="mi">0</span><span class="o">+</span><span class="p">,</span>
+    <span class="n">error</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">,</span>
+    <span class="n">warning</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
 <dl class="docutils">
 <dt>Reference:</dt>
 <dd><ul class="first last simple">
