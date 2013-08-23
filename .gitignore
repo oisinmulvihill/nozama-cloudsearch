@@ -17,7 +17,7 @@ develop-eggs
 .installed.cfg
 lib
 lib64
-docs/build/html
+docs/build
 
 # Installer logs
 pip-log.txt
