@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Welcome to nozama-cloudsearch documentation! &mdash; The Cloudsearch Service and client library. 1.0.0dev documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0.0dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="The Cloudsearch Service and client library. 1.0.0dev documentation" href="#" />
+    <link rel="next" title="REST API For Nozama CloudSearch" href="api.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="api.html" title="REST API For Nozama CloudSearch"
+             accesskey="N">next</a> |</li>
+        <li><a href="#">The Cloudsearch Service and client library. 1.0.0dev documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="welcome-to-nozama-cloudsearch-documentation">
+<h1>Welcome to nozama-cloudsearch documentation!<a class="headerlink" href="#welcome-to-nozama-cloudsearch-documentation" title="Permalink to this headline">¶</a></h1>
+<p>Contents:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">REST API For Nozama CloudSearch</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#amazon-cloudsearch">Amazon CloudSearch</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.html#post-api-version-documents-batch">POST /&lt;api version&gt;/documents/batch</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#nozama-specific">Nozama Specific</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.html#get-dev-documents">GET /dev/documents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#delete-dev-documents">DELETE /dev/documents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#get-ping">GET /ping</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="developer.html">Developer Guide to Project</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="developer.html#quick-start">Quick start</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="developer.html#run-the-server">Run the server</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="developer.html#project-parts">Project Parts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="developer.html#docs">docs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="developer.html#data">Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="developer.html#service">Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="developer.html#client">Client</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="developer.html#tools">Tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="developer.html#cloudsearch-admin">cloudsearch-admin</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>The aim of this project is to emulate the Amazon CloudSearch interface for
+local testing purposes. I don&#8217;t intend this project to be used as a replacement
+for cloud search.</p>
+<p>I wanted to test a platfom that was hardcoded to use only cloudsearch. There
+was no way I could change the code in question. I was also unable to get other
+instances due to budget constraints. I looked around for alternatives and found
+none I could get working on CentOS.</p>
+<div class="section" id="alternative-projects">
+<h3>Alternative projects<a class="headerlink" href="#alternative-projects" title="Permalink to this headline">¶</a></h3>
+<p>I came across Groonga CloudSearch which implements a local instance of Amazon
+CloudSearch. I tried hard to get it to work on CentOS and Ubuntu. Sadly it
+didn&#8217;t work for me. Its NodeJS codebase needs updating. Something I don&#8217;t have
+the time to learn and try.</p>
+<p>It may be worth keeping and eye on incase it comes to life again.</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference external" href="http://gcs.groonga.org/docs/">http://gcs.groonga.org/docs/</a></li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><em>Index</em></a></li>
+<li><a class="reference internal" href="py-modindex.html"><em>Module Index</em></a></li>
+<li><a class="reference internal" href="search.html"><em>Search Page</em></a></li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Welcome to nozama-cloudsearch documentation!</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a><ul>
+<li><a class="reference internal" href="#alternative-projects">Alternative projects</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+
+  <h4>Next topic</h4>
+  <p class="topless"><a href="api.html"
+                        title="next chapter">REST API For Nozama CloudSearch</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/index.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="api.html" title="REST API For Nozama CloudSearch"
+             >next</a> |</li>
+        <li><a href="#">The Cloudsearch Service and client library. 1.0.0dev documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, body Limited..
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

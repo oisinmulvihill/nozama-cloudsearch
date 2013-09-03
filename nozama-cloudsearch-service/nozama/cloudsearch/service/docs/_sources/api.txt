@@ -54,12 +54,35 @@ Nozama Specific
 GET /dev/documents
 ~~~~~~~~~~~~~~~~~~
 
-This will return all documents currently stored on the system. This is useful
-for seeing the results of a batch upload.
+This will return all documents add and removed from the the system by
+subsequent batch uploads.
 
 .. code-block:: python
 
     # This returns a list of ...
+
+    {
+        'documents_removed': [
+            {
+                'lang': 'en',
+                'fields': {...},
+                'version': '...',
+                'id': '...'
+            },
+            :
+            etc
+        ],
+        'documents': [
+            {
+                'lang': 'en',
+                'fields': {...},
+                'version': '...',
+                'id': '...'
+            },
+            :
+            etc
+        ]
+    }
 
 
 DELETE /dev/documents

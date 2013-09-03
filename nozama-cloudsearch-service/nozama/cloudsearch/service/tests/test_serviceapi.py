@@ -28,7 +28,9 @@ def test_batch_document_upload_add(test_server):
     """Test the /documents/batch API.
     """
     test_server.api.remove_all()
-    assert test_server.api.all_documents() == []
+    report = test_server.api.report()
+    assert report['documents'] == []
+    assert report['documents_removed'] == []
 
     # upload and example document
     doc = {
@@ -57,7 +59,13 @@ def test_batch_document_upload_add(test_server):
     ]
     test_server.api.batch_upload(example_sdf)
 
-    found = test_server.api.all_documents()
+    report = test_server.api.report()
+
+    print "report"
+    print report
+    print
+
+    found = report['documents']
 
     assert len(found) == 1
     assert found[0]['id'] == '1246'
@@ -69,4 +77,6 @@ def test_batch_document_upload_add(test_server):
     assert found[0]['fields']['name'] == "Pro Quad Clamp Purple"
 
     test_server.api.remove_all()
-    assert len(test_server.api.all_documents()) == 0
+    report = test_server.api.report()
+    found = report['documents']
+    assert len(found) == 0

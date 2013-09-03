@@ -47,8 +47,10 @@ class CloudSearchService(object):
         res.raise_for_status()
         return res.json
 
-    def all_documents(self):
-        """Called to recover all documents stored on the system.
+    def report(self):
+        """Called to recover all added and removed documents stored on the
+        system.
+
         """
         res = requests.get(urljoin(self.uri, '/dev/documents'))
         res.raise_for_status()

@@ -43,9 +43,9 @@ def dev_documents(request):
     """
     log = get_log("dev_documents")
 
-    log.info("Returning all stored documents.")
+    log.info("Returning document storage report.")
 
-    return document.all()
+    return document.report()
 
 
 @view_config(

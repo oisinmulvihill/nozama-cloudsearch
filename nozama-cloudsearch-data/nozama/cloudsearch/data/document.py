@@ -22,6 +22,18 @@ def all():
     return returned
 
 
+def removed():
+    """Return all the documents which have been removed.
+    """
+    log = get_log('removed')
+    conn = db().conn()
+
+    returned = list(conn.documents_removed.find())
+    log.debug("Returning '{0}' documents".format(len(returned)))
+
+    return returned
+
+
 import formencode
 from formencode import validators
 
@@ -47,7 +59,7 @@ class DocSchema(formencode.Schema):
     version = validators.String(not_empty=True, strip=True)
 
     type = validators.OneOf(
-        ["add", "remove"], not_empty=True, strip=True,
+        ["add", "delete"], not_empty=True, strip=True,
     )
 
 
@@ -98,6 +110,7 @@ def load(docs_to_load):
 
         else:
             # remove
+            log.debug("to remove: '{0}'".format(doc))
             to_remove.append(doc)
 
     if to_load:
@@ -105,9 +118,17 @@ def load(docs_to_load):
         conn.documents.insert(to_load)
 
     if to_remove:
-        doc_ids = [doc['_id'] in to_remove]
-        log.debug("bulk removing: '{0}' documents(s)".format(len(doc_ids)))
-        conn.documents.remove(doc_ids)
+        doc_ids = [doc['id'] for doc in to_remove]
+
+        # Recover the documents that have been removed in this upload and
+        # store it on the removed list.
+        for doc_id in doc_ids:
+            query = dict(_id=doc_id)
+            found = conn.documents.find_one(query)
+            if found:
+                log.debug("adding to remove store: '{0}'".format(query))
+                conn.documents_removed.insert(found)
+                conn.documents.remove(query)
 
     rc = dict(
         status='ok',
@@ -120,10 +141,35 @@ def load(docs_to_load):
     return rc
 
 
+def report():
+    """Return a list of a documents added and removed by batch uploading.
+
+    :returns: a dict.
+
+    E.g.:
+
+        {
+            "documents": [
+                # A list of documents currently stored from all batch upload
+                # so far.
+                :
+            ],
+            "documents_removed": [
+                # A list of documents that have been removed from all batch
+                # uploads so far.
+                :
+            ]
+        }
+
+    """
+    return {"documents": all(), "documents_removed": removed()}
+
+
 def remove_all():
     """Remove all store documents.
     """
     log = get_log('remove_all')
     conn = db().conn()
     conn.documents.drop()
+    conn.documents_removed.drop()
     log.warn("all documents have been removed.")
