@@ -1,31 +1,21 @@
 # -*- coding: utf-8 -*-
 """
-Tests to verify the REST interface of the nozama-cloudsearch-service.
+Test to verify my implementation of the search API.
 
 Oisin Mulvihill
 2013-08-22
 
 """
-#import pytest
-import pkg_resources
+import pytest
 
 
-def test_service_is_running(test_server):
-    """Test the service is running and the status it returns.
-    """
-    response = test_server.api.ping()
+@pytest.mark.xfail
+def test_searching(test_server):
+    """Currently searching returns all documents uploading with no filtering.
 
-    pkg = pkg_resources.get_distribution("nozama-cloudsearch-service")
+    This test will fail as the search is not restricting. I'm marking it as
+    failing so I know to fix this.
 
-    #print response
-
-    assert response["status"] == "ok"
-    assert response['name'] == 'nozama-cloudsearch-service'
-    assert response['version'] == pkg.version
-
-
-def test_batch_document_upload_add(test_server):
-    """Test the /documents/batch API.
     """
     test_server.api.remove_all()
     report = test_server.api.report()
@@ -60,23 +50,17 @@ def test_batch_document_upload_add(test_server):
     test_server.api.batch_upload(example_sdf)
 
     report = test_server.api.report()
-
-    # print "report"
-    # print report
-    # print
-
     found = report['documents']
-
     assert len(found) == 1
     assert found[0]['id'] == '1246'
     assert found[0]['_id'] == '1246'
     assert found[0]['lang'] == 'en'
-    # type should have been stripped:
-    assert 'type' not in found[0]
     assert found[0]['version'] == '1376497963'
     assert found[0]['fields']['name'] == "Pro Quad Clamp Purple"
 
-    test_server.api.remove_all()
-    report = test_server.api.report()
-    found = report['documents']
-    assert len(found) == 0
+    # It doesn't matter whats entered here as no filtering is done currently. I
+    # will implement searching behaviour as I need it for the apps I'm working
+    # with.
+    #
+    results = test_server.api.search('skate board')
+    assert len(results['hits']['found']) == 0

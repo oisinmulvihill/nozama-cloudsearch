@@ -65,7 +65,8 @@ calls.</p>
 <div class="section" id="amazon-cloudsearch">
 <h2>Amazon CloudSearch<a class="headerlink" href="#amazon-cloudsearch" title="Permalink to this headline">¶</a></h2>
 <p>These are the REST API calls I currently implement from Amazon&#8217;s CloudSearch
-API.</p>
+API. The &lt;api version&gt; can be any string currently, I don&#8217;t check or enforce
+any value here.</p>
 <dl class="docutils">
 <dt>Reference:</dt>
 <dd><ul class="first last simple">
@@ -77,7 +78,7 @@ API.</p>
 <h3>POST /&lt;api version&gt;/documents/batch<a class="headerlink" href="#post-api-version-documents-batch" title="Permalink to this headline">¶</a></h3>
 <p>This is used to batch load documents for later querying. This loads documents
 from the Amazon SDF and adds/removes from mongo accordingly.</p>
-<p>This will return a JSON reponse property:</p>
+<p>This will return a JSON response property:</p>
 <blockquote>
 <div><div class="highlight-python"><div class="highlight"><pre><span class="n">rc</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
     <span class="n">status</span><span class="o">=</span><span class="s">&#39;ok&#39;</span><span class="p">,</span>
@@ -93,6 +94,51 @@ from the Amazon SDF and adds/removes from mongo accordingly.</p>
 <dt>Reference:</dt>
 <dd><ul class="first last simple">
 <li><a class="reference external" href="http://docs.aws.amazon.com/cloudsearch/latest/developerguide/DocumentsBatch.JSON.html#DocumentsBatch.JSON.ResponseProperties">http://docs.aws.amazon.com/cloudsearch/latest/developerguide/DocumentsBatch.JSON.html#DocumentsBatch.JSON.ResponseProperties</a></li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="get-api-version-search">
+<h3>GET /&lt;api version&gt;/search<a class="headerlink" href="#get-api-version-search" title="Permalink to this headline">¶</a></h3>
+<p>Currently this does not filter the result or perform any search. It will return
+the ids of all documents on the system. It will look at the &#8220;q&#8221; parameter and
+recover the string it should be restricting. It will put this in the match-expr
+returned.</p>
+<p>I intend to implement search. For the moment I just need a response rather then
+not having search at all.</p>
+<p>This will return a JSON response:</p>
+<blockquote>
+<div><div class="highlight-python"><div class="highlight"><pre><span class="c"># example return</span>
+<span class="p">{</span>
+    <span class="s">&#39;rank&#39;</span><span class="p">:</span> <span class="s">&#39;-text_relevance&#39;</span>
+    <span class="s">&#39;match-expr&#39;</span><span class="p">:</span> <span class="s">&quot;(label &#39;skate board&#39;)&quot;</span><span class="p">,</span>
+    <span class="s">&#39;hits&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&#39;found&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s">&#39;start&#39;</span><span class="p">:</span> <span class="mi">0</span>
+        <span class="s">&#39;hit&#39;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span><span class="s">&#39;id&#39;</span><span class="p">:</span> <span class="s">u&#39;1382&#39;</span><span class="p">}</span>
+        <span class="p">],</span>
+    <span class="p">},</span>
+    <span class="s">&#39;info&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&#39;rid&#39;</span><span class="p">:</span> <span class="s">&#39;128a5a6b5881d7d28252ef835961d6538a04b99b74c420011fc081496eb36baedc17b278a6f29979&#39;</span><span class="p">,</span>
+        <span class="s">&#39;cpu-time-ms&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s">&#39;time-ms&#39;</span><span class="p">:</span> <span class="mf">0.0010879039764404297</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>The rank is hard coded to &#8216;-text_relevance&#8217; for the moment. The hits/found is
+the amount of documents on the system. The hits/hit will be a list of all
+document ids currently added to the system. This will match the &#8216;documents&#8217;
+section in that JSON returned by a GET of &#8216;/dev/documents&#8217;.</p>
+<p>The rid will be generated each time. The time-ms will also be calculated based
+on the time it take to run a query. The cpu-time-ms is currently hard coded to
+0.</p>
+<dl class="docutils">
+<dt>Reference:</dt>
+<dd><ul class="first last simple">
+<li><a class="reference external" href="http://docs.aws.amazon.com/cloudsearch/latest/developerguide/searching.html">http://docs.aws.amazon.com/cloudsearch/latest/developerguide/searching.html</a></li>
 </ul>
 </dd>
 </dl>
@@ -151,11 +197,16 @@ for cleaning out before a test run.</p>
 structure in the form:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
     <span class="s">&#39;status&#39;</span><span class="p">:</span> <span class="s">&#39;ok&#39;</span><span class="p">,</span>
+    <span class="c"># This will contain the current version number.</span>
     <span class="s">&#39;version&#39;</span><span class="p">:</span> <span class="s">&#39;X.Y.Z&#39;</span><span class="p">,</span>
     <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">&#39;nozama-cloudsearch-service&#39;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="get-docs">
+<h3>GET /docs/<a class="headerlink" href="#get-docs" title="Permalink to this headline">¶</a></h3>
+<p>The service self hosts its own documentation. This is the same</p>
 </div>
 </div>
 </div>
@@ -172,12 +223,14 @@ structure in the form:</p>
 <li><a class="reference internal" href="#introduction">Introduction</a></li>
 <li><a class="reference internal" href="#amazon-cloudsearch">Amazon CloudSearch</a><ul>
 <li><a class="reference internal" href="#post-api-version-documents-batch">POST /&lt;api version&gt;/documents/batch</a></li>
+<li><a class="reference internal" href="#get-api-version-search">GET /&lt;api version&gt;/search</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#nozama-specific">Nozama Specific</a><ul>
 <li><a class="reference internal" href="#get-dev-documents">GET /dev/documents</a></li>
 <li><a class="reference internal" href="#delete-dev-documents">DELETE /dev/documents</a></li>
 <li><a class="reference internal" href="#get-ping">GET /ping</a></li>
+<li><a class="reference internal" href="#get-docs">GET /docs/</a></li>
 </ul>
 </li>
 </ul>

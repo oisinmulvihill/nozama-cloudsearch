@@ -23,13 +23,18 @@ else:
         fd.write(json.dumps(dict(egg_version=version)))
 
 Name = 'nozama-cloudsearch-client'
-ProjectUrl = ""
+ProjectUrl = "https://github.com/oisinmulvihill/nozama-cloudsearch"
 Version = version
-Author = ''
-AuthorEmail = 'everyone at body dot co dot uk'
-Maintainer = ''
-Summary = ' nozama-cloudsearch-client '
-License = ''
+Author = 'Oisin Mulvihill'
+AuthorEmail = 'oisin dot mulvihill a-t  gmail dot com'
+Maintainer = 'Oisin Mulvihill'
+Summary = (
+    "The Python REST client library to talk to the nozama-cloudsearch service."
+    "The implements the Amazon CloudSearch and Nozama's testing helper API."
+    "See the http://nozama-cloudsearch.readthedocs.org/en/latest/ for more "
+    "details."
+)
+License = 'BSD'
 Description = Summary
 ShortDescription = Summary
 

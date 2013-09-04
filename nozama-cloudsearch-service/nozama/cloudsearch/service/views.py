@@ -8,6 +8,7 @@ import pkg_resources
 from pyramid.view import view_config
 
 
+@view_config(route_name='home', request_method='GET', renderer='json')
 @view_config(route_name='ping', request_method='GET', renderer='json')
 def status(request):
     """This is used to 'ping' the web service to check if its running.

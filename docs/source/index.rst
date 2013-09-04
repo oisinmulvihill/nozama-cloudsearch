@@ -36,6 +36,19 @@ It may be worth keeping and eye on incase it comes to life again.
  * http://gcs.groonga.org/docs/
 
 
+Documentation
+-------------
+
+ * http://nozama-cloudsearch.readthedocs.org/en/latest
+
+
+Source Code
+-----------
+
+ * https://github.com/oisinmulvihill/nozama-cloudsearch
+
+
+
 Indices and tables
 ==================
 

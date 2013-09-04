@@ -55,10 +55,20 @@ def main(global_config, **settings):
     # Javascript/CSS/etc
     config.add_static_view('static', 'static', cache_max_age=3600)
 
+    # handled by ping at the moment. I must do a proper amazom cloudsearch
+    # root.
+    config.add_route(
+        'home', '/'
+    )
+
     # Amazon CloudSearch REST interface routes:
     #
     config.add_route(
         'documents_batch', '/{api_version}/documents/batch'
+    )
+
+    config.add_route(
+        'doc_search', '/{api_version}/search'
     )
 
     # Testing URL(s) query the results of cloud search operations.

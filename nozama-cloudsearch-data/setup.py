@@ -24,13 +24,17 @@ else:
 
 
 Name = 'nozama-cloudsearch-data'
-ProjectUrl = ""
+ProjectUrl = "https://github.com/oisinmulvihill/nozama-cloudsearch"
 Version = version
-Author = ''
-AuthorEmail = 'everyone at body dot co dot uk'
-Maintainer = ''
-Summary = ' nozama-cloudsearch-data '
-License = ''
+Author = 'Oisin Mulvihill'
+AuthorEmail = 'oisin dot mulvihill a-t  gmail dot com'
+Maintainer = 'Oisin Mulvihill'
+Summary = (
+    'The MongoDB backend storage that nozama-cloudsearch-service relies on. '
+    'See the http://nozama-cloudsearch.readthedocs.org/en/latest/ for more '
+    'details.'
+)
+License = 'BSD'
 Description = Summary
 ShortDescription = Summary
 

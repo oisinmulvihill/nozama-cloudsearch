@@ -23,16 +23,18 @@ else:
 
 
 Name = 'nozama-cloudsearch-service'
-ProjectUrl = ""
+ProjectUrl = "https://github.com/oisinmulvihill/nozama-cloudsearch"
 Version = version
-Author = ''
-AuthorEmail = ''
-Maintainer = ''
+Author = 'Oisin Mulvihill'
+AuthorEmail = 'oisin dot mulvihill a-t  gmail dot com'
+Maintainer = 'Oisin Mulvihill'
+License = 'BSD'
 Summary = (
-    'A REST service which implements the Amazon CloudSearch for local testing'
-    'purposes.'
+    'A REST service which implements the Amazon CloudSearch for local testing '
+    'purposes. This is *not* intended as a replacement for Amazon CloudSearch.'
+    "See the http://nozama-cloudsearch.readthedocs.org/en/latest/ for more "
+    "details."
 )
-License = ''
 Description = Summary
 ShortDescription = Summary
 
@@ -45,6 +47,8 @@ needed = [
     "pyramid_jinja2",
     "pyramid_beaker",
     "waitress",
+    "nozama-cloudsearch-data",
+    "nozama-cloudsearch-client",
 ]
 
 test_needed = [
