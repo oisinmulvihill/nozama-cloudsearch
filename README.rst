@@ -59,7 +59,7 @@ To get up and going on a system with MongoDB running do:
     # Success! Press Ctrl-c to exit.
 
 MongoDB needs to be install and running on the system. The default set up will
-using a database called 'nozama-cloudsearch'. See the development.ini
+use a database called 'nozama-cloudsearch'. See the development.ini
 configuration file for more details.
 
 
