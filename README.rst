@@ -1,10 +1,12 @@
 nozama-cloudsearch
-==================
+------------------
+
+.. contents::
+
 
 A light weight implementation of Amazon's CloudSearch service for local testing
-purposes. This is meant for use in acceptance testing of service which use
-cloud search. My aim is to create scenarios and test what the application under
-test does.
+purposes. This is meant for use in functional / acceptance testing of service
+which use cloud search.
 
 The Nozama Service also implements its own REST API to allow you to get at the
 data in a way you wouldn't normally be able to on Amazon CloudSearch.
@@ -18,7 +20,14 @@ Locally hosted docs:
 
 * http://localhost:15808/docs/index.html
 
-This documents the API I've implemented so far.
+
+Why?
+~~~~
+
+I wanted to test a platfom that was hardcoded to use only cloudsearch. There
+was no way I could change the code in question. I was also unable to get other
+instances due to budget constraints. I looked around for alternatives and found
+none I could get working on CentOS.
 
 
 Quickstart
