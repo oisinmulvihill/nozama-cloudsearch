@@ -2,6 +2,7 @@
 """
 """
 import logging
+import subprocess
 
 from nozama.cloudsearch.data.db import db
 
@@ -139,6 +140,77 @@ def load(docs_to_load):
     )
 
     return rc
+
+
+def configure_field(domain, name, field_type):
+    """Set up the full text indexing and how the type information is handled.
+
+    :param domain: Not used for now, possibly with be to collection or db.
+
+    :param name: The field inside the batch upload to set the index for.
+
+    :param field_type: The type information. Only 'text' is implemented.
+
+    I'm going to make it compatible with how Amazon does it. Although for now
+    I'm just going to get FTI working using what MongoDB provides.
+
+    """
+    log = get_log('configure_field')
+
+    conn = db().conn()
+    field_type = field_type.strip().lower()
+
+    log.debug("domain <{0}> name<{1}> field_type<{2}>".format(
+        domain, name, field_type
+    ))
+
+    if field_type == "text":
+        # I can't figure out how to get pymongo to do this.  From mongo shell
+        # you would do something like:
+        #
+        # db.collection.ensureIndex(
+        #                    {
+        #                      subject: "text",
+        #                      content: "text"
+        #                    }
+        #                  )
+        #
+        # HACK: call mongo shell and create the index for the moment.
+        #
+        cmd = (
+            "mongo " + conn.name + " -eval "
+            "'db.documents.ensureIndex({\"fields." + field_type + "\": \"text\"})'"
+        )
+        subprocess.call(cmd, shell=True)
+
+        log.debug("field_type<{0}> configured for FTI in MongoDB".format(
+            field_type
+        ))
+
+
+def search(query={}):
+    """
+    """
+    runCommand = db().conn().command
+
+    q = query.get('q', '')
+
+    # How to do this via runCommand access in pymongo:
+    # ref:
+    #   * https://groups.google.com/forum/#!topic/mongodb-user/mlDOg4OqBRI
+
+    results = runCommand(
+        'text',
+        'documents',
+        search=q,
+        #filter={'about': {'$regex': 'desserts'}},
+        #limit=2,
+        #projection={'comments': 1, '_id': 0}
+    )
+
+    print 'results', results
+
+    return results
 
 
 def report():
