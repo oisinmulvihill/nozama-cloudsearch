@@ -82,3 +82,82 @@ def db():
     if not __db:
         raise ValueError("No DB instance configured! Call init() first.")
     return __db
+
+
+import rawes
+import requests
+from urlparse import urljoin
+
+
+#
+# Elastic Search Connection Helper
+#
+__es = None
+
+
+class ElasticSearchHelper(object):
+    """
+    """
+    def __init__(self, config={}):
+        """
+        :param config: A dict containing at least es_endpoint field.
+
+        .. code-block:: python
+
+            {
+                "es_endpoint": "http://localhost:9200",
+                "es_namespace": "test1"
+            }
+
+        """
+        self.log = logging.getLogger("%s.ElasticSearchHelper" % __name__)
+        self.base_uri = config.get('es_endpoint', 'http://localhost:9200')
+        self.log.info(
+            "Using ElasticSearch Endpoint '{0}'".format(self.base_uri)
+        )
+        self.namespace = config.get('es_namespace', 'test1')
+        self.document_path = '/{0}/documents/document'.format(self.namespace)
+        self.log.info(
+            "document_path is '{0}'".format(self.document_path)
+        )
+        self.conn = rawes.Elastic(self.base_uri)
+
+    def hard_reset(self):
+        """Remove all stored documents from search ready for a new test run.
+        """
+        url = urljoin(self.base_uri, self.document_path)
+
+        self.log.warn(
+            "hard_reset: removing all content from {0}".format(url)
+        )
+
+        requests.delete(url)
+
+        self.log.warn(
+            "hard_reset: all content removed from {0} OK.".format(url)
+        )
+
+
+def init_es(config={}):
+    """Set up the default DB instance a call to get_db() will return.
+
+    :param config: See DB() docs for config dict fields.
+
+    :returns: None.
+
+    """
+    global __es
+    __es = ElasticSearchHelper(config)
+
+
+def get_es():
+    """Recover the elastic search connection helper.
+
+    :returns: The ElasticSearchHelper instance configured through init().
+
+    """
+    if not __es:
+        raise ValueError(
+            "No ElasticSearchHelper instance configured! Call init() first."
+        )
+    return __es

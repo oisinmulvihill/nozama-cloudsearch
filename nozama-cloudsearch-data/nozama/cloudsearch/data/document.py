@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 """
 """
+import os
 import logging
-import subprocess
 
 from nozama.cloudsearch.data.db import db
+from nozama.cloudsearch.data.db import get_es
+from nozama.cloudsearch.data.db import ElasticSearchHelper
 
 
 def get_log(e=None):
@@ -67,6 +69,69 @@ class DocSchema(formencode.Schema):
 DOC_SCHEMA = DocSchema()
 
 
+def add_to_elasticsearch(doc):
+    """
+    """
+    log = get_log('add_to_elasticsearch')
+    es = get_es()
+
+    log.debug("adding doc <{0}>".format(doc['id']))
+
+    result = es.conn.put(
+        '{0}/{1}'.format(es.document_path[1:], doc['id']),
+        data=doc['fields']
+    )
+
+    log.debug("doc <{0}> add result: {1}".format(doc['id'], result))
+
+
+def search(query={}):
+    """Perform a search across text fields.
+
+    :returns: A dict compatible with an Amazon CloudSearch response.
+
+    """
+    log = get_log('add_to_elasticsearch')
+    es = get_es()
+
+    qstring = query.get('q', '')
+    log.debug("searching query '{0}'".format(query))
+
+    if not qstring:
+        results = es.conn.get(
+            '{0}/_search'.format(es.document_path[1:]),
+            data="""{"query" : {"match_all" : {}}}"""
+        )
+
+    else:
+        q = '{"query" : { "query_string" : {"query" : "' + qstring + '*"} }}'
+        results = es.get(
+            '{0}/_search'.format(es.document_path[1:]),
+            data=q
+        )
+
+    request_id = os.urandom(40).encode('hex')
+
+    rc = {
+        "rank": "-text_relevance",
+        "match-expr": "(label '{0}')".format(qstring),
+        "hits": {
+            "found": results['hits']['total'],
+            "start": 0,
+            "hit": [i['_id'] for i in results['hits']['hits']]
+        },
+        "info": {
+            "rid": request_id,
+            "time-ms": results['took'],
+            "cpu-time-ms": 0
+        }
+    }
+
+    log.debug("found '{0}'".format(rc))
+
+    return rc
+
+
 def load(docs_to_load):
     """Load documents in the Amazon SDF an add/remove from mongo accordingly.
 
@@ -117,6 +182,8 @@ def load(docs_to_load):
     if to_load:
         log.debug("bulk loading: '{0}' document(s)".format(len(to_load)))
         conn.documents.insert(to_load)
+        for doc in to_load:
+            add_to_elasticsearch(doc)
 
     if to_remove:
         doc_ids = [doc['id'] for doc in to_remove]
@@ -157,60 +224,12 @@ def configure_field(domain, name, field_type):
     """
     log = get_log('configure_field')
 
-    conn = db().conn()
+    #conn = db().conn()
     field_type = field_type.strip().lower()
 
     log.debug("domain <{0}> name<{1}> field_type<{2}>".format(
         domain, name, field_type
     ))
-
-    if field_type == "text":
-        # I can't figure out how to get pymongo to do this.  From mongo shell
-        # you would do something like:
-        #
-        # db.collection.ensureIndex(
-        #                    {
-        #                      subject: "text",
-        #                      content: "text"
-        #                    }
-        #                  )
-        #
-        # HACK: call mongo shell and create the index for the moment.
-        #
-        cmd = (
-            "mongo " + conn.name + " -eval "
-            "'db.documents.ensureIndex({\"fields." + field_type + "\": \"text\"})'"
-        )
-        subprocess.call(cmd, shell=True)
-
-        log.debug("field_type<{0}> configured for FTI in MongoDB".format(
-            field_type
-        ))
-
-
-def search(query={}):
-    """
-    """
-    runCommand = db().conn().command
-
-    q = query.get('q', '')
-
-    # How to do this via runCommand access in pymongo:
-    # ref:
-    #   * https://groups.google.com/forum/#!topic/mongodb-user/mlDOg4OqBRI
-
-    results = runCommand(
-        'text',
-        'documents',
-        search=q,
-        #filter={'about': {'$regex': 'desserts'}},
-        #limit=2,
-        #projection={'comments': 1, '_id': 0}
-    )
-
-    print 'results', results
-
-    return results
 
 
 def report():

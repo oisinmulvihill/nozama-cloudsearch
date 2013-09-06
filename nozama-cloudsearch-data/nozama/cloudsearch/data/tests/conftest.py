@@ -29,3 +29,16 @@ def mongodb(request):
     from nozama.cloudsearch.data import db
     db.init(dict(db_name='unittesting-db'))
     db.db().hard_reset()
+
+
+@pytest.fixture(scope='function')
+def elastic(request):
+    """Set up a elasticsearch connection reset and ready to roll.
+
+    This will attempt to connect to the default elasticsearch instance
+    on http://localhost:9200. Its not configurable yet.
+
+    """
+    from nozama.cloudsearch.data.db import init_es, get_es
+    init_es(dict(es_namespace="unittesting_ns"))
+    get_es().hard_reset()

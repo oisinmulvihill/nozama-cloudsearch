@@ -44,6 +44,7 @@ needed = [
     'cmdln',
     'formencode',
     'pymongo',
+    'rawes',
 ]
 
 test_needed = [

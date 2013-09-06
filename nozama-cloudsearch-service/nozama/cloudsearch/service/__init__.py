@@ -33,6 +33,14 @@ def main(global_config, **settings):
     log.debug("MongoDB config<{0}>".format(cfg))
     db.init(cfg)
 
+    cfg = dict(
+        es_endpoint=settings.get(
+            "elasticsearch.endpoint", "http://localhost:9200"
+        ),
+    )
+    log.debug("ElasticSearch config<{0}>".format(cfg))
+    db.init_es(cfg)
+
     # Custom 404 json response handler. This returns a useful JSON
     # response in the body of the 404.
     # XXX this is conflicting
