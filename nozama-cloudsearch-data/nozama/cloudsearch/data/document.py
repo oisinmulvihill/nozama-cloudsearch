@@ -2,11 +2,14 @@
 """
 """
 import os
+import json
 import logging
+
+import requests
 
 from nozama.cloudsearch.data.db import db
 from nozama.cloudsearch.data.db import get_es
-from nozama.cloudsearch.data.db import ElasticSearchHelper
+#from nozama.cloudsearch.data.db import ElasticSearchHelper
 
 
 def get_log(e=None):
@@ -69,6 +72,9 @@ class DocSchema(formencode.Schema):
 DOC_SCHEMA = DocSchema()
 
 
+HEADERS = {"Content-Type": "application/json"}
+
+
 def add_to_elasticsearch(doc):
     """
     """
@@ -77,10 +83,13 @@ def add_to_elasticsearch(doc):
 
     log.debug("adding doc <{0}>".format(doc['id']))
 
-    result = es.conn.put(
-        '{0}/{1}'.format(es.document_path[1:], doc['id']),
-        data=doc['fields']
-    )
+    # result = es.conn.put(
+    #     '{0}/{1}'.format(es.document_path, doc['id']),
+    #     data=doc['fields']
+    # )
+    data = json.dumps(doc['fields'])
+    response = requests.post(es.document_uri, data=data, headers=HEADERS)
+    result = response.json
 
     log.debug("doc <{0}> add result: {1}".format(doc['id'], result))
 
@@ -91,24 +100,24 @@ def search(query={}):
     :returns: A dict compatible with an Amazon CloudSearch response.
 
     """
-    log = get_log('add_to_elasticsearch')
+    log = get_log('search')
     es = get_es()
 
     qstring = query.get('q', '')
     log.debug("searching query '{0}'".format(query))
 
-    if not qstring:
-        results = es.conn.get(
-            '{0}/_search'.format(es.document_path[1:]),
-            data="""{"query" : {"match_all" : {}}}"""
-        )
+    # import pdb ; pdb.set_trace()
+    if qstring:
+        data = '{"query": {"query_string": {"query": "%s"}}}' % qstring
+        data = json.dumps(data)
+        response = requests.get(es.search_uri, data=data, headers=HEADERS)
 
     else:
-        q = '{"query" : { "query_string" : {"query" : "' + qstring + '*"} }}'
-        results = es.get(
-            '{0}/_search'.format(es.document_path[1:]),
-            data=q
-        )
+        response = requests.get(es.search_uri, headers=HEADERS)
+
+    import pdb ; pdb.set_trace()
+
+    results = response.json
 
     request_id = os.urandom(40).encode('hex')
 

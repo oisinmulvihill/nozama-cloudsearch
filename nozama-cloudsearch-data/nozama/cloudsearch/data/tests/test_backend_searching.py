@@ -70,7 +70,7 @@ def test_basic_search(logger, mongodb, elastic):
     assert results['hits']['hit'] == ['1247', '1246']
 
     # return a specific one:
-    query = dict(q="pro quad")
+    query = dict(q="pro")
     results = document.search(query)
     assert results['hits']['found'] == 1
     assert results['hits']['hit'] == ['1246']

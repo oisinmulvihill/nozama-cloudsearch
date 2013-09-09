@@ -39,12 +39,12 @@ Description = Summary
 ShortDescription = Summary
 
 needed = [
-    'evasion-common==1.0.1',
-    'requests==0.14',
+    'evasion-common',
+    'requests',
     'cmdln',
     'formencode',
     'pymongo',
-    'rawes',
+    'pyelasticsearch',
 ]
 
 test_needed = [
