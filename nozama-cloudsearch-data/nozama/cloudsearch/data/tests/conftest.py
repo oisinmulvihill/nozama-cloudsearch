@@ -40,5 +40,5 @@ def elastic(request):
 
     """
     from nozama.cloudsearch.data.db import init_es, get_es
-    init_es(dict(es_namespace="unittesting_ns"))
+    init_es(dict(es_namespace="ut_"))
     get_es().hard_reset()

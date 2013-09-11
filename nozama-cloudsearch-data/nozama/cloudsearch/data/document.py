@@ -76,20 +76,22 @@ HEADERS = {"Content-Type": "application/json"}
 
 
 def add_to_elasticsearch(doc):
-    """
+    """This indexes the fields and puts them into cloud search for later
+    searching.
+
     """
     log = get_log('add_to_elasticsearch')
     es = get_es()
 
     log.debug("adding doc <{0}>".format(doc['id']))
 
-    # result = es.conn.put(
-    #     '{0}/{1}'.format(es.document_path, doc['id']),
-    #     data=doc['fields']
-    # )
-    data = json.dumps(doc['fields'])
-    response = requests.post(es.document_uri, data=data, headers=HEADERS)
-    result = response.json
+    result = es.conn.index(
+        es.index,
+        es.doc_type,
+        doc['fields'],
+        id=doc['_id']
+    )
+    es.conn.refresh(es.index)
 
     log.debug("doc <{0}> add result: {1}".format(doc['id'], result))
 
@@ -108,16 +110,24 @@ def search(query={}):
 
     # import pdb ; pdb.set_trace()
     if qstring:
-        data = '{"query": {"query_string": {"query": "%s"}}}' % qstring
-        data = json.dumps(data)
-        response = requests.get(es.search_uri, data=data, headers=HEADERS)
+        query = {"query": {"query_string": {"query": "{0}*".format(qstring)}}}
+        response = es.conn.search(query, index=es.index)
 
     else:
-        response = requests.get(es.search_uri, headers=HEADERS)
+        query = {"query": {"match_all": {}}}
+        response = es.conn.search(query, index=es.index)
 
-    import pdb ; pdb.set_trace()
+    results = response
 
-    results = response.json
+#     import pprint
+#     print """
+
+# results:
+# --------
+
+# %s
+
+#     """ % pprint.pformat(results)
 
     request_id = os.urandom(40).encode('hex')
 

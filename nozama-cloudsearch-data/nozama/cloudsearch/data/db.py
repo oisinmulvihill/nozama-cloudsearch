@@ -91,6 +91,8 @@ from urlparse import urljoin
 #
 # Elastic Search Connection Helper
 #
+from pyelasticsearch import ElasticSearch
+
 __es = None
 
 
@@ -115,7 +117,9 @@ class ElasticSearchHelper(object):
             "Using ElasticSearch Endpoint '{0}'".format(self.base_uri)
         )
         self.namespace = config.get('es_namespace', '')
-        self.document_path = '/{0}documents/document'.format(self.namespace)
+        self.index = '{0}documents'.format(self.namespace)
+        self.doc_type = 'fields'
+        self.document_path = '/{0}/{1}'.format(self.index, self.doc_type)
         self.search_path = '{0}/_search'.format(self.document_path)
         self.document_uri = urljoin(self.base_uri, self.document_path)
         self.search_uri = urljoin(self.base_uri, self.search_path)
@@ -125,9 +129,10 @@ class ElasticSearchHelper(object):
                 self.search_uri
             )
         )
+        self.conn = es = ElasticSearch(self.base_uri)
 
     def hard_reset(self):
-        """Remove all stored documents from search ready for a new test run.
+        """Remove all indexed documents from search ready for a new test run.
         """
         url = urljoin(self.base_uri, self.document_path)
 
@@ -135,7 +140,8 @@ class ElasticSearchHelper(object):
             "hard_reset: removing all content from {0}".format(url)
         )
 
-        requests.delete(url)
+        #self.conn.delete_all(self.index, self.doc_type)
+        self.conn.delete_all_indexes()
 
         self.log.warn(
             "hard_reset: all content removed from {0} OK.".format(url)

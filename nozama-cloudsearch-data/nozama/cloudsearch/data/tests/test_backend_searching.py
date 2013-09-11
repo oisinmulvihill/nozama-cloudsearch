@@ -2,16 +2,13 @@
 """
 """
 from nozama.cloudsearch.data import document
+#from nozama.cloudsearch.data.db import get_es
 
 
 def test_basic_search(logger, mongodb, elastic):
     """Test searching the documents stored in mongodb.
     """
     assert document.all() == []
-
-    # Set up the full text infexing.
-    document.configure_field("mydomain", "name", "text")
-    #document.configure_field("mydomain", "designer", "text")
 
     doc = {
         "designer": "GearPro",
@@ -33,11 +30,11 @@ def test_basic_search(logger, mongodb, elastic):
         "price": 12.60,
         "retailer": "MyShoppe",
         "brand_id": [
-            7017
+            7016
         ],
         "size": [],
         "category": "",
-        "name": "Pro Quad Clamp Purple",
+        "name": "Bike Pump Purple",
         "colour": [],
         "brand": "98",
         "created_at": 1376391294
@@ -67,10 +64,21 @@ def test_basic_search(logger, mongodb, elastic):
     # return all:
     results = document.search()
     assert results['hits']['found'] == 2
-    assert results['hits']['hit'] == ['1247', '1246']
+    c = ['1247', '1246']
+    c.sort()
+    assert results['hits']['hit'] == c
 
     # return a specific one:
     query = dict(q="pro")
     results = document.search(query)
     assert results['hits']['found'] == 1
     assert results['hits']['hit'] == ['1246']
+
+    query = dict(q="myshop")
+    results = document.search(query)
+    assert results['hits']['found'] == 2
+    assert results['hits']['hit'] == c
+
+    query = dict(q="not in any string")
+    results = document.search(query)
+    assert results['hits']['found'] == 0
