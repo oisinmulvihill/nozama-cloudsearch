@@ -39,6 +39,7 @@ Description = Summary
 ShortDescription = Summary
 
 needed = [
+    "pytest",
     'requests',
     'cmdln',
     'formencode',
