@@ -39,12 +39,12 @@ Description = Summary
 ShortDescription = Summary
 
 needed = [
-    'evasion-common',
     'requests',
     'cmdln',
 ]
 
 test_needed = [
+    'evasion-common',
 ]
 
 test_suite = 'nozama.cloudsearch.client.tests'

@@ -39,8 +39,6 @@ Description = Summary
 ShortDescription = Summary
 
 needed = [
-    "pytest",
-    "evasion-common",
     "decorator",
     "paste",
     "pyramid",
@@ -52,6 +50,8 @@ needed = [
 ]
 
 test_needed = [
+    "pytest",
+    "evasion-common",
 ]
 
 test_suite = 'nozama.cloudsearch.service.tests'

@@ -39,7 +39,6 @@ Description = Summary
 ShortDescription = Summary
 
 needed = [
-    'evasion-common',
     'requests',
     'cmdln',
     'formencode',
@@ -48,6 +47,8 @@ needed = [
 ]
 
 test_needed = [
+    "pytest",
+    'evasion-common',
 ]
 
 test_suite = 'nozama.cloudsearch.data.tests'
