@@ -4,7 +4,7 @@ nozama-cloudsearch-service
 
 """
 import os
-import time
+#import time
 import logging
 
 from pyramid.view import view_config
@@ -59,40 +59,9 @@ def doc_search(request):
     #
     params = request.params.mixed()
 
-    # recover the details for match-expr field:
-    query_string = ''
-    if 'q' in params:
-        query_string = params['q']
+    log.debug("params recovered <{0}>".format(params))
 
-    log.debug("filter by q = '{0}'".format(query_string))
-
-    # time the query time so I can add it to the search response info section
-    begin = time.time()
-
-    docs = [
-        dict(
-            id=i['_id']
-        )
-        for i in document.all()
-    ]
-
-    end = time.time()
-
-    # Generate the correct response structure:
-    rc = {
-        "rank": "-text_relevance",
-        "match-expr": "(label '{0}')".format(query_string),
-        "hits": {
-            "found": len(docs),
-            "start": 0,
-            "hit": docs
-        },
-        "info": {
-            "rid": request_id,
-            "time-ms": (end - begin),
-            "cpu-time-ms": 0
-        }
-    }
+    rc = document.search(params)
 
     log.debug("returning <{0}> results found:\n{1}.".format(
         rc['hits']['found'],

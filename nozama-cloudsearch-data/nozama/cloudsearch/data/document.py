@@ -5,11 +5,10 @@ import os
 import json
 import logging
 
-import requests
+from pyelasticsearch import ElasticHttpNotFoundError
 
 from nozama.cloudsearch.data.db import db
 from nozama.cloudsearch.data.db import get_es
-#from nozama.cloudsearch.data.db import ElasticSearchHelper
 
 
 def get_log(e=None):
@@ -108,16 +107,24 @@ def search(query={}):
     qstring = query.get('q', '')
     log.debug("searching query '{0}'".format(query))
 
-    # import pdb ; pdb.set_trace()
-    if qstring:
-        query = {"query": {"query_string": {"query": "{0}*".format(qstring)}}}
-        response = es.conn.search(query, index=es.index)
+    try:
+        if qstring:
+            query = {
+                "query": {"query_string": {"query": "{0}*".format(qstring)}}
+            }
+            results = es.conn.search(query, index=es.index)
 
-    else:
-        query = {"query": {"match_all": {}}}
-        response = es.conn.search(query, index=es.index)
+        else:
+            query = {"query": {"match_all": {}}}
+            results = es.conn.search(query, index=es.index)
 
-    results = response
+    except ElasticHttpNotFoundError:
+        # No documents present in store. Don't worry about it there's nothing
+        # to search
+        results = dict(
+            hits=dict(hits=[], total=0),
+            took=0,
+        )
 
 #     import pprint
 #     print """

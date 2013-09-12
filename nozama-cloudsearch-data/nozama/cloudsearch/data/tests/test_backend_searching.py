@@ -5,6 +5,15 @@ from nozama.cloudsearch.data import document
 #from nozama.cloudsearch.data.db import get_es
 
 
+def test_search_with_no_content(logger, mongodb, elastic):
+    """Test search an empty system doesn't raise exceptions.
+    """
+    assert document.all() == []
+
+    results = document.search()
+    assert results['hits']['found'] == 0
+
+
 def test_basic_search(logger, mongodb, elastic):
     """Test searching the documents stored in mongodb.
     """
