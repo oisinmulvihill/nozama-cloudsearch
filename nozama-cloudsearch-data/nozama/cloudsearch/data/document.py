@@ -110,7 +110,11 @@ def search(query={}):
     try:
         if qstring:
             query = {
-                "query": {"query_string": {"query": "{0}*".format(qstring)}}
+                "query": {
+                    "query_string": {
+                        "query": "{0}*".format(qstring)
+                    }
+                }
             }
             results = es.conn.search(query, index=es.index)
 
@@ -126,18 +130,6 @@ def search(query={}):
             took=0,
         )
 
-#     import pprint
-#     print """
-
-# results:
-# --------
-
-# %s
-
-#     """ % pprint.pformat(results)
-
-    request_id = os.urandom(40).encode('hex')
-
     rc = {
         "rank": "-text_relevance",
         "match-expr": "(label '{0}')".format(qstring),
@@ -147,7 +139,7 @@ def search(query={}):
             "hit": [i['_id'] for i in results['hits']['hits']]
         },
         "info": {
-            "rid": request_id,
+            "rid": os.urandom(40).encode('hex'),
             "time-ms": results['took'],
             "cpu-time-ms": 0
         }
