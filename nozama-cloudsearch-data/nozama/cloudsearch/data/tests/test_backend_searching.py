@@ -75,6 +75,7 @@ def test_basic_search(logger, mongodb, elastic):
     assert results['hits']['found'] == 2
     c = ['1247', '1246']
     c.sort()
+    results['hits']['hit'].sort()
     assert results['hits']['hit'] == c
 
     # return a specific one:
@@ -86,6 +87,8 @@ def test_basic_search(logger, mongodb, elastic):
     query = dict(q="myshop")
     results = document.search(query)
     assert results['hits']['found'] == 2
+    c.sort()
+    results['hits']['hit'].sort()
     assert results['hits']['hit'] == c
 
     query = dict(q="not in any string")

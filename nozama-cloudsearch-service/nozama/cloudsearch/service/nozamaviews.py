@@ -63,8 +63,6 @@ def doc_search(request):
 
     rc = document.search(params)
 
-    import pdb ; pdb.set_trace()
-
     log.debug("returning <{0}> results found:\n{1}.".format(
         rc['hits']['found'],
         rc,

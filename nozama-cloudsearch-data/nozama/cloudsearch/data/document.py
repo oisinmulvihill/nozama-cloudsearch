@@ -2,7 +2,7 @@
 """
 """
 import os
-import json
+#import json
 import logging
 
 from pyelasticsearch import ElasticHttpNotFoundError
@@ -93,6 +93,25 @@ def add_to_elasticsearch(doc):
     es.conn.refresh(es.index)
 
     log.debug("doc <{0}> add result: {1}".format(doc['id'], result))
+
+
+def remove_from_elasticsearch(doc):
+    """Remove this document from the index.
+
+    """
+    log = get_log('remove_from_elasticsearch')
+    es = get_es()
+
+    log.debug("remove doc <{0}>".format(doc['id']))
+
+    result = es.conn.delete(
+        es.index,
+        es.doc_type,
+        id=doc['_id']
+    )
+    es.conn.refresh(es.index)
+
+    log.debug("doc <{0}> remove result: {1}".format(doc['id'], result))
 
 
 def search(query={}):
@@ -282,3 +301,6 @@ def remove_all():
     conn.documents.drop()
     conn.documents_removed.drop()
     log.warn("all documents have been removed.")
+    # Remove al of the documents from elasticsearch as well.
+    get_es().hard_reset()
+    log.warn("All indexes removed from elasticsearch.")
