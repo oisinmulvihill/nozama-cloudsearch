@@ -155,7 +155,7 @@ def search(query={}):
         "hits": {
             "found": results['hits']['total'],
             "start": 0,
-            "hit": [i['_id'] for i in results['hits']['hits']]
+            "hit": [{"id": i['_id']} for i in results['hits']['hits']]
         },
         "info": {
             "rid": os.urandom(40).encode('hex'),

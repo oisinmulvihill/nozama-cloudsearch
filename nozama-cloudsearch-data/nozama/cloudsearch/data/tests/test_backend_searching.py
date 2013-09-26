@@ -73,7 +73,7 @@ def test_basic_search(logger, mongodb, elastic):
     # return all:
     results = document.search()
     assert results['hits']['found'] == 2
-    c = ['1247', '1246']
+    c = [{'id': '1247'}, {'id': '1246'}]
     c.sort()
     results['hits']['hit'].sort()
     assert results['hits']['hit'] == c
@@ -82,7 +82,7 @@ def test_basic_search(logger, mongodb, elastic):
     query = dict(q="pro")
     results = document.search(query)
     assert results['hits']['found'] == 1
-    assert results['hits']['hit'] == ['1246']
+    assert results['hits']['hit'] == [{'id': '1246'}]
 
     query = dict(q="myshop")
     results = document.search(query)
