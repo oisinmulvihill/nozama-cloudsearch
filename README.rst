@@ -75,7 +75,7 @@ command line.
 
     # A quick check of the version and that the service is running:
     curl -H "Content-Type: application/json" http://localhost:15808/ping
-    {"status": "ok", "version": "1.0.3", "name": "nozama-cloudsearch-service"}
+    {"status": "ok", "version": "1.1.0", "name": "nozama-cloudsearch-service"}
 
     # Now check what documents are present / removed:
     curl -H "Content-Type: application/json" http://localhost:15808/dev/documents
@@ -91,7 +91,7 @@ command line.
 
     # Try searching for the document:
     curl -H "Content-Type: application/json" http://localhost:15808/2013-08-22/search?q=bob
-    {"info": {"rid": "999a84dc93c4358f683d6f3670ceed78787935f95b5e7315cc3814dd8a0b8988d0b4ed2deb03f65d", "cpu-time-ms": 0, "time-ms": 0.0015230178833007812}, "hits": {"found": 1, "hit": [{"id": "1246"}], "start": 0}, "match-expr": "(label 'bob')", "rank": "-text_relevance"}
+    {"info": {"rid": "5ac832321dd35dfe1f3151689ab019bac24f5e2acf4d5f9f46516329988c3967109f3ae0ba59b345", "cpu-time-ms": 0, "time-ms": 2}, "hits": {"found": 1, "hit": [{"id": "1246"}], "start": 0}, "match-expr": "(label 'bob')", "rank": "-text_relevance"}
 
     # Remove the document in another batch update:
     curl -X POST -H "Content-Type: application/json" http://localhost:15808/2013-08-22/documents/batch -d '[{"version": 1376497963, "type": "delete", "id": 1246}]'
