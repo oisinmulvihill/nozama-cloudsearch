@@ -32,7 +32,8 @@ Summary = (
     "The Python REST client library to talk to the nozama-cloudsearch service."
     "The implements the Amazon CloudSearch and Nozama's testing helper API."
     "See the http://nozama-cloudsearch.readthedocs.org/en/latest/ for more "
-    "details."
+    "details. One handy benefit of using Nozama is it provides a way to "
+    "migrate from Amazon CloudSearch to ElasticSearch."
 )
 License = 'BSD'
 Description = Summary

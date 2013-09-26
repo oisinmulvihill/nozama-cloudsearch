@@ -22,6 +22,37 @@ was no way I could change the code in question. I was also unable to get other
 instances due to budget constraints. I looked around for alternatives and found
 none I could get working on CentOS.
 
+One handy benefit of using Nozama is it provides a way to migrate from Amazon
+CloudSearch to ElasticSearch.
+
+
+Releases
+--------
+
+1.1.0
+~~~~~
+
+ElasticSearch is now used to index the document fields which have been batch
+uploaded. The system still uses MongoDB to record what was uploaded and
+removed. The search currently does a text search via the q parameter. Facets
+are not yet supported.
+
+ * http://www.elasticsearch.org/
+
+I maybe look at removing MongoDB and use ElasticSearch exclusively. For the
+moment this is good enough for me.
+
+
+1.0.6
+~~~~~
+
+This implements the batch upload and provides the search api. The search is
+not filtering. It will return all documents stored. MongoDB is used to store
+uploaded and removed documents.
+
+The API /dev/documents allows up to inspect the results of a batch upload. This
+aids testing applications which create the batch upload.
+
 
 Alternative projects
 ~~~~~~~~~~~~~~~~~~~~~

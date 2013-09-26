@@ -32,7 +32,8 @@ Maintainer = 'Oisin Mulvihill'
 Summary = (
     'The MongoDB backend storage that nozama-cloudsearch-service relies on. '
     'See the http://nozama-cloudsearch.readthedocs.org/en/latest/ for more '
-    'details.'
+    "details. One handy benefit of using Nozama is it provides a way to "
+    "migrate from Amazon CloudSearch to ElasticSearch."
 )
 License = 'BSD'
 Description = Summary
