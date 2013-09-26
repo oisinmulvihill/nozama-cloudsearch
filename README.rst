@@ -11,6 +11,9 @@ which use cloud search.
 The Nozama Service also implements its own REST API to allow you to get at the
 data in a way you wouldn't normally be able to on Amazon CloudSearch.
 
+One handy benefit of using Nozama is it provides a way to migrate from Amazon
+CloudSearch to ElasticSearch.
+
 The running Nozama Service hosts its own docs generated from sphinx. I've also
 upload to readthedocs.org here:
 
