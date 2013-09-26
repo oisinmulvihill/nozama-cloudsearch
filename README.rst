@@ -93,6 +93,9 @@ command line.
     curl -H "Content-Type: application/json" http://localhost:15808/2013-08-22/search?q=bob
     {"info": {"rid": "5ac832321dd35dfe1f3151689ab019bac24f5e2acf4d5f9f46516329988c3967109f3ae0ba59b345", "cpu-time-ms": 0, "time-ms": 2}, "hits": {"found": 1, "hit": [{"id": "1246"}], "start": 0}, "match-expr": "(label 'bob')", "rank": "-text_relevance"}
 
+    curl -H "Content-Type: application/json" http://localhost:15808/2013-08-22/search?q=somethingnotpresent
+    {"info": {"rid": "71b70eba393d9f79858a1e09d1cf8e1a337c4d3f954631babdc6de891e202d5416ff699e85fa76ba", "cpu-time-ms": 0, "time-ms": 0}, "hits": {"found": 0, "hit": [], "start": 0}, "match-expr": "(label 'somethingnotpresent')", "rank": "-text_relevance"}
+
     # Remove the document in another batch update:
     curl -X POST -H "Content-Type: application/json" http://localhost:15808/2013-08-22/documents/batch -d '[{"version": 1376497963, "type": "delete", "id": 1246}]'
     {"status": "ok", "warning": "", "adds": 0, "error": "", "deletes": 1}
