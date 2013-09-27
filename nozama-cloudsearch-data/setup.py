@@ -46,11 +46,11 @@ needed = [
     'formencode',
     'pymongo',
     'pyelasticsearch',
+    "evasion-common==1.0.3",
 ]
 
 test_needed = [
     "pytest",
-    "evasion-common==1.0.3",
 ]
 
 test_suite = 'nozama.cloudsearch.data.tests'

@@ -29,6 +29,12 @@ CloudSearch to ElasticSearch.
 Releases
 --------
 
+1.1.1
+~~~~~
+
+A minor fix to specify requests 1.2.3 as the version to be used. This allowed
+pyelastic search to work along with nozama and evasion common.
+
 1.1.0
 ~~~~~
 

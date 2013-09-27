@@ -101,7 +101,12 @@ CloudSearch to ElasticSearch.</p>
 <div class="section" id="releases">
 <h2>Releases<a class="headerlink" href="#releases" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id1">
-<h3>1.1.0<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<h3>1.1.1<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>A minor fix to specify requests 1.2.3 as the version to be used. This allowed
+pyelastic search to work along with nozama and evasion common.</p>
+</div>
+<div class="section" id="id2">
+<h3>1.1.0<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <p>ElasticSearch is now used to index the document fields which have been batch
 uploaded. The system still uses MongoDB to record what was uploaded and
 removed. The search currently does a text search via the q parameter. Facets
@@ -114,8 +119,8 @@ are not yet supported.</p>
 <p>I maybe look at removing MongoDB and use ElasticSearch exclusively. For the
 moment this is good enough for me.</p>
 </div>
-<div class="section" id="id2">
-<h3>1.0.6<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id3">
+<h3>1.0.6<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>This implements the batch upload and provides the search api. The search is
 not filtering. It will return all documents stored. MongoDB is used to store
 uploaded and removed documents.</p>
@@ -173,8 +178,9 @@ the time to learn and try.</p>
 <li><a class="reference internal" href="#">Welcome to nozama-cloudsearch documentation!</a><ul>
 <li><a class="reference internal" href="#introduction">Introduction</a></li>
 <li><a class="reference internal" href="#releases">Releases</a><ul>
-<li><a class="reference internal" href="#id1">1.1.0</a></li>
-<li><a class="reference internal" href="#id2">1.0.6</a></li>
+<li><a class="reference internal" href="#id1">1.1.1</a></li>
+<li><a class="reference internal" href="#id2">1.1.0</a></li>
+<li><a class="reference internal" href="#id3">1.0.6</a></li>
 <li><a class="reference internal" href="#alternative-projects">Alternative projects</a></li>
 </ul>
 </li>
