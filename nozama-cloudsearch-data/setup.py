@@ -41,7 +41,7 @@ ShortDescription = Summary
 
 needed = [
     "pytest",
-    'requests',
+    'requests==1.2.3',
     'cmdln',
     'formencode',
     'pymongo',
@@ -50,7 +50,7 @@ needed = [
 
 test_needed = [
     "pytest",
-    'evasion-common',
+    "evasion-common==1.0.3",
 ]
 
 test_suite = 'nozama.cloudsearch.data.tests'

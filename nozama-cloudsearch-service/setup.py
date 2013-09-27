@@ -52,7 +52,7 @@ needed = [
 
 test_needed = [
     "pytest",
-    "evasion-common",
+    "evasion-common==1.0.3",
 ]
 
 test_suite = 'nozama.cloudsearch.service.tests'
