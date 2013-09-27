@@ -29,6 +29,11 @@ CloudSearch to ElasticSearch.
 Releases
 --------
 
+1.1.2
+~~~~~
+
+Evasion common is a dependancy add wasn't being listed, which it now is.
+
 1.1.1
 ~~~~~
 
