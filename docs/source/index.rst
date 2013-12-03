@@ -29,6 +29,13 @@ CloudSearch to ElasticSearch.
 Releases
 --------
 
+1.1.3
+~~~~~
+
+This is a minor fix to the LICENSE file as spotted by Alex (https://github.com/ALyman).
+
+ * https://github.com/oisinmulvihill/nozama-cloudsearch/issues/1
+
 1.1.2
 ~~~~~
 
