@@ -115,3 +115,13 @@ command line.
     curl -H "Content-Type: application/json" http://localhost:15808/dev/documents
     {"documents_removed": [], "documents": []}
 
+
+Versions
+--------
+
+1.1.3
+~~~~~
+
+This is a minor fix to the LICENSE file as spotted by Alex (https://github.com/ALyman).
+
+ * https://github.com/oisinmulvihill/nozama-cloudsearch/issues/1
