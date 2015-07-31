@@ -3,7 +3,7 @@
 """
 import logging
 
-from pymongo import Connection
+from pymongo import MongoClient
 
 
 class DB(object):
