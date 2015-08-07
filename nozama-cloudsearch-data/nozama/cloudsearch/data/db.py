@@ -35,13 +35,13 @@ class DB(object):
     def mongo_conn(self):
         """Returns a mongodb connection not tied to a database."""
         if not self._connection:
-            self._connection = Connection(self.host, self.port)
+            self._connection = MongoClient(self.host, self.port)
         return self._connection
 
     def conn(self):
         """Return the db connection.
 
-        :returns: A mongodb Connection instance.
+        :returns: A mongodb MongoClient instance.
 
         """
         return self.mongo_conn()[self.db_name]
