@@ -44,7 +44,7 @@ needed = [
     'requests==1.2.3',
     'cmdln',
     'formencode',
-    'pymongo',
+    'pymongo==2.8.1',
     'pyelasticsearch',
     "evasion-common==1.0.3",
 ]
