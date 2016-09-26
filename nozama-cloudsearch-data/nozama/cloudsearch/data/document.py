@@ -218,8 +218,8 @@ def load(docs_to_load):
 
     if to_load:
         log.debug("bulk loading: '{0}' document(s)".format(len(to_load)))
-        conn.documents.insert(to_load)
         for doc in to_load:
+            conn.documents.update({'_id': doc['id']}, doc, True)
             add_to_elasticsearch(doc)
 
     if to_remove:
