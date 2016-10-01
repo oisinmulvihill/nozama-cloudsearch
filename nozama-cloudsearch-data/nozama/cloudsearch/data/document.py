@@ -61,8 +61,6 @@ class DocSchema(formencode.Schema):
 
     #fields = FieldsSchema(not_empty=True)
 
-    version = validators.String(not_empty=True, strip=True)
-
     type = validators.OneOf(
         ["add", "delete"], not_empty=True, strip=True,
     )
