@@ -49,6 +49,7 @@ class FieldsSchema(formencode.Schema):
     allow_extra_fields = True
 
 
+from datetime import datetime
 class DocSchema(formencode.Schema):
     """Validate the document and the add/remove operation.
 
@@ -61,7 +62,7 @@ class DocSchema(formencode.Schema):
 
     #fields = FieldsSchema(not_empty=True)
 
-    version = validators.String(not_empty=True, strip=True)
+    version = validators.String(strip=True, if_missing=datetime.now().strftime('%s'))
 
     type = validators.OneOf(
         ["add", "delete"], not_empty=True, strip=True,
