@@ -155,6 +155,10 @@ def search(query={}):
     for i in results['hits']['hits']:
         query = dict(_id=i['_id'])
         fields = conn.documents.find_one(query)['fields']
+        if formatType == u'sdk':
+            for key, value in fields.items():
+                if not isinstance(value, list):
+                    fields[key] = [value]
         hit.append({'id': i['_id'], 'fields': fields})
 
     rc = {

@@ -94,3 +94,12 @@ def test_basic_search(logger, mongodb, elastic):
     query = dict(q="not in any string")
     results = document.search(query)
     assert results['hits']['found'] == 0
+
+    # return in sdk format
+    query = dict(q="pro", format="sdk")
+    results = document.search(query)
+    for key, value in doc.items():
+        if not isinstance(value, list):
+            doc[key] = [value]
+    assert results['hits']['found'] == 1
+    assert results['hits']['hit'] == [{'id': '1246', 'fields': doc}]
