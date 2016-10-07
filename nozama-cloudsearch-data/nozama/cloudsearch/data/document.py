@@ -126,6 +126,7 @@ def search(query={}):
 
     qstring = query.get('q', '')
     log.debug("searching query '{0}'".format(query))
+    formatType = query.get('format', '')
 
     try:
         if qstring:
@@ -150,13 +151,24 @@ def search(query={}):
             took=0,
         )
 
+    hit = []
+    conn = db().conn()
+    for i in results['hits']['hits']:
+        query = dict(_id=i['_id'])
+        fields = conn.documents.find_one(query)['fields']
+        if formatType == u'sdk':
+            for key, value in fields.items():
+                if not isinstance(value, list):
+                    fields[key] = [value]
+        hit.append({'id': i['_id'], 'fields': fields})
+
     rc = {
         "rank": "-text_relevance",
         "match-expr": "(label '{0}')".format(qstring),
         "hits": {
             "found": results['hits']['total'],
             "start": 0,
-            "hit": [{"id": i['_id']} for i in results['hits']['hits']]
+            "hit": hit
         },
         "info": {
             "rid": os.urandom(40).encode('hex'),
