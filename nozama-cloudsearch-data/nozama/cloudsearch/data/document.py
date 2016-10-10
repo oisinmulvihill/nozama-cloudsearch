@@ -133,7 +133,7 @@ def search(query={}):
             query = {
                 "query": {
                     "query_string": {
-                        "query": "{0}*".format(qstring)
+                        "query": u"{0}*".format(qstring)
                     }
                 }
             }
@@ -164,7 +164,7 @@ def search(query={}):
 
     rc = {
         "rank": "-text_relevance",
-        "match-expr": "(label '{0}')".format(qstring),
+        "match-expr": u"(label '{0}')".format(qstring),
         "hits": {
             "found": results['hits']['total'],
             "start": 0,
