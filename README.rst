@@ -125,7 +125,7 @@ Add support for multibyte characters.
 
  * https://github.com/oisinmulvihill/nozama-cloudsearch/pull/9
 
-Return field valuds and support `sdk` format.
+Return field values and support `sdk` format.
 
  * https://github.com/oisinmulvihill/nozama-cloudsearch/pull/8
  
