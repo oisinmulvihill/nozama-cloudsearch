@@ -125,9 +125,12 @@ Add support for multibyte characters.
 
  * https://github.com/oisinmulvihill/nozama-cloudsearch/pull/9
 
-Add support for aws-sdk client.
+Return field valuds and support `sdk` format.
 
  * https://github.com/oisinmulvihill/nozama-cloudsearch/pull/8
+ 
+Remove unnecessary validations.
+
  * https://github.com/oisinmulvihill/nozama-cloudsearch/pull/7
 
 Upsert a document.
