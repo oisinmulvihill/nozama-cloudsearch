@@ -121,7 +121,18 @@ Versions
 
 1.2.0
 ~~~~~
+Add support for multibyte characters by @hokuma
 
+ * https://github.com/oisinmulvihill/nozama-cloudsearch/pull/9
+
+Add support for aws-sdk client by @hokuma
+
+ * https://github.com/oisinmulvihill/nozama-cloudsearch/pull/8
+ * https://github.com/oisinmulvihill/nozama-cloudsearch/pull/7
+
+Upsert a document by @hokuma
+
+ * https://github.com/oisinmulvihill/nozama-cloudsearch/pull/6
 
 1.1.3
 ~~~~~
