@@ -119,6 +119,26 @@ command line.
 Versions
 --------
 
+1.2.0
+~~~~~
+Add support for multibyte characters.
+
+ * https://github.com/oisinmulvihill/nozama-cloudsearch/pull/9
+
+Return field values and support `sdk` format.
+
+ * https://github.com/oisinmulvihill/nozama-cloudsearch/pull/8
+ 
+Remove unnecessary validations.
+
+ * https://github.com/oisinmulvihill/nozama-cloudsearch/pull/7
+
+Upsert a document.
+
+ * https://github.com/oisinmulvihill/nozama-cloudsearch/pull/6
+ 
+Contributed by hokuma(https://github.com/hokuma)
+
 1.1.3
 ~~~~~
 
