@@ -18,7 +18,7 @@ def get_log(e=None):
 
 
 @view_config(
-    route_name='doc_search', request_method='GET', renderer='json'
+    route_name='doc_search', request_method=('POST', 'GET'), renderer='json'
 )
 def doc_search(request):
     """Handles quering of the stored documents.
