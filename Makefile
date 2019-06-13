@@ -31,7 +31,7 @@ docker_build: clean
 		.
 
 up:
-	docker-compose --project-name ${DOCKER_NAME} up --remove-orphans -d mrdb-api peanut_db postcodes_io irr-api lead-api customer-service
+	docker-compose --project-name ${DOCKER_NAME} up --remove-orphans -d
 
 ps:
 	docker-compose --project-name ${DOCKER_NAME} ps
@@ -69,7 +69,7 @@ lint:
 	flake8 nozama
 
 test: test_install lint
-	coverage run -m py.test --junitxml=tests/report.xml tests
+	coverage run -m py.test -s --junitxml=tests/report.xml tests
 	coverage report
 	coverage html
 

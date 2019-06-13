@@ -66,7 +66,7 @@ class ServerRunner(object):
     def __init__(self, port=None, configfile=None, interface='localhost'):
         """
         """
-        self.log = get_log("ServerRunner")
+        self.log = logging.getLogger("ServerRunner")
         self.serverPid = None
         self.serverProcess = None
         if interface:
@@ -204,7 +204,7 @@ def test_server(request):
     """Pytest fixture to run a test instance of the service.
 
     """
-    log = logging.gelogger("test_server")
+    log = logging.getLogger("test_server")
 
     test_server = ServerRunner()
 

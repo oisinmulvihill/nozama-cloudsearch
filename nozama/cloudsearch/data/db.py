@@ -30,7 +30,7 @@ class DB(object):
         self.log = logging.getLogger("%s.DB" % __name__)
         self.config = config
         self.db_name = config.get("db_name", "nozama-cloudsearch").strip()
-        self.port = int(config.get("port", 27017))
+        self.port = int(config.get("port", 9200))
         self.host = config.get("host", "localhost").strip()
         self._connection = None
 

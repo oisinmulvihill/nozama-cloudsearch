@@ -1,21 +1,8 @@
 version: "3.4"
 services:
-  api:
-    build:
-      context: .
-      target: service
-    volumes:
-      - .:/app
-    environment:
-      DB_HOST: elasticsearch
-      DB_PORT: 9200
-      DB_USER:
-      DB_PASS:
-    ports:
-      - "8080:8080"
-
   elasticsearch:
-    image: "elasticsearch"
+    image: elasticsearch:7.1.0
     environment:
+      - "discovery.type=single-node"
     ports:
       - "9200:9200"
