@@ -1,0 +1,2 @@
+include *.txt *.ini *.cfg *.rst
+recursive-include nozama *.rst *.html
