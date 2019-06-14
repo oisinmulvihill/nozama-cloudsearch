@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-nozama-cloudsearch-service
+nozama-cloudsearch
 
 """
 import pkg_resources
@@ -24,10 +24,10 @@ def status(request):
         )
 
     """
-    pkg = pkg_resources.get_distribution('nozama-cloudsearch-service')
+    pkg = pkg_resources.get_distribution('nozama-cloudsearch')
 
     return dict(
         status="ok",
-        name="nozama-cloudsearch-service",
+        name="nozama-cloudsearch",
         version=pkg.version,
     )

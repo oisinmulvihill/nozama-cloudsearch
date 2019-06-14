@@ -5,7 +5,7 @@ This provides the REST classes used to access the service.
 """
 import json
 import logging
-from urlparse import urljoin
+from urllib.parse import urljoin
 
 import requests
 

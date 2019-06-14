@@ -4,7 +4,7 @@
 from nozama.cloudsearch.data import document
 
 
-def test_document_add(logger, mongodb):
+def test_document_add(logger, elastic, mongodb):
     """Test mongo document API.
     """
     assert document.all() == []

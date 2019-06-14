@@ -1,5 +1,5 @@
 [app:main]
-use = egg:nozama-cloudsearch-service
+use = egg:nozama-cloudsearch
 
 pyramid.reload_templates = false
 pyramid.debug_authorization = false

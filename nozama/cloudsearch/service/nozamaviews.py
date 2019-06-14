@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-nozama-cloudsearch-service
+nozama-cloudsearch
 
 """
 import os

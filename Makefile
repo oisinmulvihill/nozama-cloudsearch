@@ -16,6 +16,7 @@ clean:
 
 install:
 	pip install -r requirements.txt
+	python setup.py develop
 
 test_install: install
 	pip install -r test-requirements.txt
@@ -51,16 +52,6 @@ docker_test:
 	docker run \
 		-u 0 \
 		--rm \
-		-e MRDB_SERVICE_URL=http://mrdb-api:8080 \
-		-e IRR_SERVICE_URL=http://irr-api:8000 \
-		-e LEAD_SERVICE_URL=http://lead-api:8080 \
-		-e RENTAL_VALUATIONS_SERVICE_URL=http://rental-valuations-api:8080 \
-		-e PROPERTIES_SERVICE_URL=http://properties-api:8080 \
-		-e CUSTOMER_SERVICE_URL=http://customer-service:8080 \
-		-e DB_HOST=peanut_db \
-		-e CUSTOMER_DB_HOST=customer_db \
-		-e CUSTOMER_DB_PORT=5432 \
-		-e POSTCODES_IO_URL=https://api.postcodes.io \
 		--network=${DOCKER_NAME}_default \
 		${DOCKER_IMAGE}-test \
 		make test

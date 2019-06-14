@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-PythonPro REST Service 'nozama-cloudsearch-service'
+REST Service 'nozama-cloudsearch'
 
 """
 import os
 import logging
-import httplib
 
 from pyramid.config import Configurator
 
@@ -46,10 +45,10 @@ def main(global_config, **settings):
     # XXX this is conflicting
     # config.add_view(restfulhelpers.notfound_404_view, context=HTTPNotFound)
 
-    not_found = restfulhelpers.xyz_handler(httplib.NOT_FOUND)
+    not_found = restfulhelpers.xyz_handler(404)
     config.add_view(not_found, context='pyramid.exceptions.NotFound')
 
-    bad_request = restfulhelpers.xyz_handler(httplib.BAD_REQUEST)
+    bad_request = restfulhelpers.xyz_handler(400)
     config.add_view(
         bad_request,
         context='pyramid.httpexceptions.HTTPBadRequest'

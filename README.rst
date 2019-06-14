@@ -45,13 +45,13 @@ To get up and going on a system with MongoDB running do:
     source nozama/bin/activate
 
     # Install from pypi:
-    easy_install nozama-cloudsearch-service
+    easy_install nozama-cloudsearch
 
     # OR
     pip install
 
     # download the development configuration:
-    curl -O https://raw.github.com/oisinmulvihill/nozama-cloudsearch/master/nozama-cloudsearch-service/development.ini
+    curl -O https://raw.github.com/oisinmulvihill/nozama-cloudsearch/master/nozama-cloudsearch/development.ini
 
     # Run the service:
     pserve development.ini
@@ -78,7 +78,7 @@ command line.
 
     # A quick check of the version and that the service is running:
     curl -H "Content-Type: application/json" http://localhost:15808/ping
-    {"status": "ok", "version": "1.1.0", "name": "nozama-cloudsearch-service"}
+    {"status": "ok", "version": "1.1.0", "name": "nozama-cloudsearch"}
 
     # Now check what documents are present / removed:
     curl -H "Content-Type: application/json" http://localhost:15808/dev/documents

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Tests to verify the REST interface of the nozama-cloudsearch-service.
+Tests to verify the REST interface of the nozama-cloudsearch.
 
 Oisin Mulvihill
 2013-08-22
@@ -14,12 +14,12 @@ def test_service_is_running(test_server):
     """
     response = test_server.api.ping()
 
-    pkg = pkg_resources.get_distribution("nozama-cloudsearch-service")
+    pkg = pkg_resources.get_distribution("nozama-cloudsearch")
 
     # print response
 
     assert response["status"] == "ok"
-    assert response['name'] == 'nozama-cloudsearch-service'
+    assert response['name'] == 'nozama-cloudsearch'
     assert response['version'] == pkg.version
 
 

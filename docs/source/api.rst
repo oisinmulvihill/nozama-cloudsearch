@@ -162,7 +162,7 @@ structure in the form:
         'status': 'ok',
         # This will contain the current version number.
         'version': 'X.Y.Z',
-        'name': 'nozama-cloudsearch-service'
+        'name': 'nozama-cloudsearch'
     }
 
 

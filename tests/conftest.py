@@ -9,16 +9,90 @@ Oisin Mulvihill
 """
 import os
 import sys
+import time
 import socket
 import logging
 import tempfile
 import subprocess
+import http.client
 import configparser
 from io import StringIO
 from string import Template
+from urllib.parse import urlparse
+from urllib.parse import urlsplit
 from pkg_resources import resource_string
 
 import pytest
+
+
+def wait_for_ready(uri, retries=40, wait_period=0.5, timeout=1.0):
+    """Called to wait for a web application to respond to normal requests.
+
+    This function will attempt a HEAD request if its
+    supported, otherwise it will use GET.
+
+    :param uri: the URI of the web application on which
+    it will receive requests.
+
+    :param retries: The amount of attempts to try finding
+    a free port.
+
+    :param wait_period: The seconds to wait before attempting connection.
+
+    :param timeout: The socket timeout to prevent blocking.
+
+    :returns: True: the web app ready.
+
+    """
+    returned = False
+
+    URI = uri
+    # Work set up the connection for the HEAD request:
+    o = urlsplit(URI)
+    conn = http.client.HTTPConnection(o.hostname, o.port, timeout=timeout)
+
+    while retries:
+        retries -= 1
+        try:
+            # Just get the headers and not the body to speed things up.
+            conn.request("HEAD", '/')
+            res = conn.getresponse()
+            if res.status == http.client.OK:
+                # success, its ready.
+                returned = True
+                break
+
+            elif res.status == http.client.NOT_IMPLEMENTED:
+                # HEAD not supported try a GET instead:
+                try:
+                    urllib.urlopen(URI)
+                except IOError:
+                    # Not ready yet. I should check the exception to
+                    # make sure its socket error or we could be looping
+                    # forever. I'll need to use a state machine if this
+                    # prototype works. For now I'm taking the "head in
+                    # the sand" approach.
+                    pass
+                else:
+                    # success, its ready.
+                    returned = True
+                    break
+
+        except http.client.CannotSendRequest:
+            # Not ready yet.
+            pass
+
+        except socket.error:
+            # Not ready yet. I should check the exception to
+            # make sure its socket error or we could be looping
+            # forever. I'll need to use a state machine if this
+            # prototype works. For now I'm taking the "head in
+            # the sand" approach.
+            pass
+
+        time.sleep(wait_period)
+
+    return returned
 
 
 @pytest.fixture(scope='session')
@@ -95,19 +169,14 @@ class ServerRunner(object):
         self.cmd = "pserve {0}".format(self.temp_config)
 
         self.test_cfg = resource_string(__name__, 'test_cfg.ini.template')
-        cfg_tmpl = Template(self.test_cfg)
+        cfg_tmpl = Template(self.test_cfg.decode())
         data = dict(
             interface=self.interface,
             port=int(self.port),
         )
         data = cfg_tmpl.substitute(data)
-
-        # print "data:"
-        # print data
-        # print
-
         with open(self.temp_config, "wb") as fd:
-            fd.write(data)
+            fd.write(data.encode())
         self.config = configparser.ConfigParser()
         self.config.readfp(StringIO(data))
 
@@ -153,8 +222,7 @@ class ServerRunner(object):
             raise SystemError("%s did not start!" % self.cmd)
 
         # self.log.debug("start: waiting for '%s' readiness." % self.URI)
-        # net.wait_for_ready(self.URI + "/ping", timeout=5)
-        # net.wait_for_ready(self.URI + "/ping", retries=10)
+        wait_for_ready(self.URI + "/ping", retries=10)
 
         return pid
 

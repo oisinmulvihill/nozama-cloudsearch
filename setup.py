@@ -7,7 +7,7 @@ from setuptools import setup, find_packages
 
 # Get the version from the source or the cached egg version:
 version = "2.0.0"
-Name = 'nozama-cloudsearch-service'
+Name = 'nozama-cloudsearch'
 ProjectUrl = "https://github.com/oisinmulvihill/nozama-cloudsearch"
 Version = version
 Author = 'Oisin Mulvihill'
@@ -75,10 +75,4 @@ setup(
     package_data=PackageData,
     eager_resources=EagerResources,
     entry_points=EntryPoints,
-    namespace_packages=[
-        'nozama',
-        'nozama.data',
-        'nozama.client',
-        'nozama.cloudsearch'
-    ],
 )

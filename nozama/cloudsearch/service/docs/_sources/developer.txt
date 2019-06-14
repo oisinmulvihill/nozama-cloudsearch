@@ -88,7 +88,7 @@ Service directory directly.
 
 For example::
 
-    cd nozama-cloudsearch-service
+    cd nozama-cloudsearch
     pserve --reload development.ini
 
 
@@ -109,7 +109,7 @@ A quick test of the client library against a running service is::
     api = CloudsearchService("http://localhost:63833")
 
     api.ping()
-    >>> {u'status': u'ok', u'version': u'1.0.0dev', u'name': u'nozama-cloudsearch-service'}
+    >>> {u'status': u'ok', u'version': u'1.0.0dev', u'name': u'nozama-cloudsearch'}
 
     # Success!
 

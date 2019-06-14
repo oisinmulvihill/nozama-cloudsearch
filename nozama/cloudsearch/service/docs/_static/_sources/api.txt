@@ -77,5 +77,5 @@ structure in the form:
     {
         'status': 'ok',
         'version': 'X.Y.Z',
-        'name': 'nozama-cloudsearch-service'
+        'name': 'nozama-cloudsearch'
     }

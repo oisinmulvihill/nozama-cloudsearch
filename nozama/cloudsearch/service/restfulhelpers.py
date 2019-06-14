@@ -7,7 +7,6 @@ Oisin Mulvihill
 
 """
 import json
-import httplib
 import logging
 import traceback
 
@@ -197,8 +196,8 @@ class JSONErrorHandler(object):
         except Exception as e:
             self.log.exception("error: ")
             errmsg = "%d %s" % (
-                httplib.INTERNAL_SERVER_ERROR,
-                httplib.responses[httplib.INTERNAL_SERVER_ERROR]
+                500,
+                "500 Server Error"
             )
             start_response(errmsg, [('Content-Type', 'application/json')])
 
