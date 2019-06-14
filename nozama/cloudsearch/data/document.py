@@ -3,11 +3,11 @@
 """
 import os
 import logging
+import binascii
 from datetime import datetime
 
 import formencode
 from formencode import validators
-from pyelasticsearch import ElasticHttpNotFoundError
 
 from nozama.cloudsearch.data.db import db
 from nozama.cloudsearch.data.db import get_es
@@ -140,7 +140,8 @@ def search(query={}):
             query = {"query": {"match_all": {}}}
             results = es.conn.search(query, index=es.index)
 
-    except ElasticHttpNotFoundError:
+    # except ElasticHttpNotFoundError:
+    except:
         # No documents present in store. Don't worry about it there's nothing
         # to search
         results = dict(
@@ -168,7 +169,7 @@ def search(query={}):
             "hit": hit
         },
         "info": {
-            "rid": os.urandom(40).encode('hex'),
+            "rid": binascii.hexlify(os.urandom(40)).decode(),
             "time-ms": results['took'],
             "cpu-time-ms": 0
         }

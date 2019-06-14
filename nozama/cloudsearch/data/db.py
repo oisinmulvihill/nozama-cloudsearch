@@ -5,7 +5,7 @@ import logging
 from urllib.parse import urljoin
 
 from pymongo import MongoClient
-from pyelasticsearch import ElasticSearch
+from elasticsearch import Elasticsearch
 
 
 class DB(object):
@@ -122,7 +122,7 @@ class ElasticSearchHelper(object):
                 self.search_uri
             )
         )
-        self.conn = ElasticSearch(self.base_uri)
+        self.conn = Elasticsearch(self.base_uri)
 
     def hard_reset(self):
         """Remove all indexed documents from search ready for a new test run.
@@ -134,7 +134,7 @@ class ElasticSearchHelper(object):
         )
 
         # self.conn.delete_all(self.index, self.doc_type)
-        self.conn.delete_all_indexes()
+        #self.conn.delete(self.index)
 
         self.log.warn(
             "hard_reset: all content removed from {0} OK.".format(url)

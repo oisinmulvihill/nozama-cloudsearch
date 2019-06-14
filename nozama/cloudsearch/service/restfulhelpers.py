@@ -9,6 +9,7 @@ Oisin Mulvihill
 import json
 import logging
 import traceback
+import http.client
 
 from pyramid.request import Response
 from decorator import decorator
@@ -92,7 +93,7 @@ def notfound_404_view(request):
     """
     msg = str(request.exception.message)
     get_log().info("notfound_404_view: URI '%s' not found!" % str(msg))
-    request.response.status = httplib.NOT_FOUND
+    request.response.status = http.client.NOT_FOUND
     request.response.content_type = "application/json"
     body = status_body(
         status="error",
