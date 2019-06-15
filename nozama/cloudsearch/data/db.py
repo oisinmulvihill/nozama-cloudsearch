@@ -133,8 +133,8 @@ class ElasticSearchHelper(object):
             "hard_reset: removing all content from {0}".format(url)
         )
 
-        # self.conn.delete_all(self.index, self.doc_type)
-        #self.conn.delete(self.index)
+        self.conn.indices.delete(index=self.index, ignore=[404, 400])
+        self.conn.indices.create(index=self.index, ignore=400)
 
         self.log.warn(
             "hard_reset: all content removed from {0} OK.".format(url)

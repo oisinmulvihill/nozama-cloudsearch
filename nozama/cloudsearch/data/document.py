@@ -82,13 +82,13 @@ def add_to_elasticsearch(doc):
 
     log.debug("adding doc <{0}>".format(doc['id']))
 
-    result = es.conn.index(
-        es.index,
-        es.doc_type,
-        doc['fields'],
-        id=doc['_id']
+    result = es.conn.create(
+        index=es.index,
+        id=doc['_id'],
+        body=doc['fields'],
     )
-    es.conn.refresh(es.index)
+    #   es.doc_type,
+    #es.conn.refresh(es.index)
 
     log.debug("doc <{0}> add result: {1}".format(doc['id'], result))
 

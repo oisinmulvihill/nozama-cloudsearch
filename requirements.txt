@@ -7,3 +7,4 @@ pyramid
 pyramid_jinja2
 pyramid_beaker
 waitress
+requests

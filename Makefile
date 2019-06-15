@@ -40,6 +40,9 @@ ps:
 logs:
 	docker-compose --project-name ${DOCKER_NAME} logs
 
+tail:
+	docker-compose --project-name ${DOCKER_NAME} logs -f
+
 down:
 	docker-compose --project-name ${DOCKER_NAME} logs -t
 	docker-compose --project-name ${DOCKER_NAME} down --remove-orphans

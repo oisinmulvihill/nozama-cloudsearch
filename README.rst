@@ -41,8 +41,10 @@ To get up and going on a system with MongoDB running do:
 .. code-block:: sh
 
     # create a quick environment to install into:
-    virtualenv nozama
-    source nozama/bin/activate
+    mkvirtualenv -p python 3 nozama
+
+    # activate en
+    workon nozama
 
     # Install from pypi:
     easy_install nozama-cloudsearch
@@ -64,7 +66,6 @@ To get up and going on a system with MongoDB running do:
 MongoDB needs to be install and running on the system. The default set up will
 use a database called 'nozama-cloudsearch'. See the development.ini
 configuration file for more details.
-
 
 Quick API Usage Example
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -116,8 +117,31 @@ command line.
     {"documents_removed": [], "documents": []}
 
 
+Development
+-----------
+
+I develop and maintain project on Mac OSX. I have install docker-composer, docker and python3 using brew. I use make to aid development and release. I've migrated the project from Python2 over to Python 3.
+
+.. code-block:: sh
+
+    # create a quick environment to install into:
+    mkvirtualenv --clear -p python3 nozama
+
+    # (activate if needed)
+    workon nozama
+
+    # Install the project dependancies
+    make install
+
+
+
 Versions
 --------
+
+2.0.0
+~~~~~
+
+Migrated to Python 3 and refactored code into a single project. I've unpinned the project dependancies and all tests pass.
 
 1.2.0
 ~~~~~
@@ -128,7 +152,7 @@ Add support for multibyte characters.
 Return field values and support `sdk` format.
 
  * https://github.com/oisinmulvihill/nozama-cloudsearch/pull/8
- 
+
 Remove unnecessary validations.
 
  * https://github.com/oisinmulvihill/nozama-cloudsearch/pull/7
@@ -136,7 +160,7 @@ Remove unnecessary validations.
 Upsert a document.
 
  * https://github.com/oisinmulvihill/nozama-cloudsearch/pull/6
- 
+
 Contributed by hokuma(https://github.com/hokuma)
 
 1.1.3
