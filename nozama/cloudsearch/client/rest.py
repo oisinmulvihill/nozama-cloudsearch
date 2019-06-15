@@ -56,6 +56,15 @@ class CloudSearchService(object):
         res.raise_for_status()
         return res.json()
 
+    def search(self, raw_string):
+        """
+        """
+        res = requests.get(urljoin(
+            self.uri, '/2013-08-22/search?q={}'.format(raw_string)
+        ))
+        res.raise_for_status()
+        return res.json()
+
     def batch_upload(self, documents):
         """Called to batch load documents into the cloudsearch service.
         """

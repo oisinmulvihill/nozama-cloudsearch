@@ -6,10 +6,8 @@ Oisin Mulvihill
 2013-08-22
 
 """
-import pytest
 
 
-@pytest.mark.xfail
 def test_searching(test_server):
     """Currently searching returns all documents uploading with no filtering.
 

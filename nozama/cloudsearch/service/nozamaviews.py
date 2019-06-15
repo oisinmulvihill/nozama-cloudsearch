@@ -5,6 +5,7 @@ nozama-cloudsearch
 """
 import os
 import logging
+import binascii
 
 from pyramid.view import view_config
 
@@ -25,7 +26,7 @@ def doc_search(request):
     """
     log = get_log("doc_search")
 
-    request_id = os.urandom(40).encode('hex')
+    request_id = binascii.hexlify(os.urandom(40)).decode()
 
     # TODO: actual query and and refine.
     #

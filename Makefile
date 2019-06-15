@@ -47,10 +47,6 @@ down:
 	docker-compose --project-name ${DOCKER_NAME} logs -t
 	docker-compose --project-name ${DOCKER_NAME} down --remove-orphans
 
-migrate:
-	git submodule update
-	docker-compose --project-name ${DOCKER_NAME} up --remove-orphans migrate
-
 docker_test:
 	docker run \
 		-u 0 \
@@ -68,4 +64,4 @@ test: test_install lint
 	coverage html
 
 run:
-	python service.py
+	pserve development.ini

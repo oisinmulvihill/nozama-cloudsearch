@@ -73,6 +73,7 @@ def test_basic_search(logger, mongodb, elastic):
     results = document.search()
     assert results['hits']['found'] == 2
     c = [{'id': '1247', 'fields': doc2}, {'id': '1246', 'fields': doc}]
+    import pdb; pdb.set_trace()
     c.sort()
     results['hits']['hit'].sort()
     assert results['hits']['hit'] == c

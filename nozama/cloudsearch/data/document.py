@@ -87,8 +87,7 @@ def add_to_elasticsearch(doc):
         id=doc['_id'],
         body=doc['fields'],
     )
-    #   es.doc_type,
-    #es.conn.refresh(es.index)
+    es.conn.indices.refresh(index=es.index)
 
     log.debug("doc <{0}> add result: {1}".format(doc['id'], result))
 
@@ -107,7 +106,7 @@ def remove_from_elasticsearch(doc):
         es.doc_type,
         id=doc['_id']
     )
-    es.conn.refresh(es.index)
+    es.conn.indices.refresh(index=es.index)
 
     log.debug("doc <{0}> remove result: {1}".format(doc['id'], result))
 
@@ -125,29 +124,28 @@ def search(query={}):
     log.debug("searching query '{0}'".format(query))
     formatType = query.get('format', '')
 
-    try:
-        if qstring:
-            query = {
-                "query": {
-                    "query_string": {
-                        "query": u"{0}*".format(qstring)
-                    }
+    # try:
+    if qstring:
+        query = {
+            "query": {
+                "query_string": {
+                    "query": u"{0}*".format(qstring)
                 }
             }
-            results = es.conn.search(query, index=es.index)
+        }
+        results = es.conn.search(index=es.index, body=query)
 
-        else:
-            query = {"query": {"match_all": {}}}
-            results = es.conn.search(query, index=es.index)
+    else:
+        query = {"query": {"match_all": {}}}
+        results = es.conn.search(index=es.index, body=query)
 
     # except ElasticHttpNotFoundError:
-    except:
-        # No documents present in store. Don't worry about it there's nothing
-        # to search
-        results = dict(
-            hits=dict(hits=[], total=0),
-            took=0,
-        )
+    #    # No documents present in store. Don't worry about it there's nothing
+    #    # to search
+    #    results = dict(
+    #        hits=dict(hits=[], total=0),
+    #        took=0,
+    #    )
 
     hit = []
     conn = db().conn()
@@ -164,7 +162,7 @@ def search(query={}):
         "rank": "-text_relevance",
         "match-expr": u"(label '{0}')".format(qstring),
         "hits": {
-            "found": results['hits']['total'],
+            "found": results['hits']['total']['value'],
             "start": 0,
             "hit": hit
         },

@@ -133,6 +133,10 @@ I develop and maintain project on Mac OSX. I have install docker-composer, docke
     # Install the project dependancies
     make install
 
+    # Start the project dependancies ElasticSearch and Mongo
+    make up
+
+
 
 
 Versions
