@@ -5,13 +5,11 @@ Setuptools script for content-classify-service (content.classify.service)
 """
 from setuptools import setup, find_packages
 
-# Get the version from the source or the cached egg version:
-version = "2.0.0"
 Name = 'nozama-cloudsearch'
 ProjectUrl = "https://github.com/oisinmulvihill/nozama-cloudsearch"
-Version = version
+Version = "2.0.0"
 Author = 'Oisin Mulvihill'
-AuthorEmail = 'oisin dot mulvihill a-t  gmail dot com'
+AuthorEmail = 'oisin.mulvihilli@gmail.com'
 Maintainer = 'Oisin Mulvihill'
 License = 'BSD'
 Summary = (
@@ -23,6 +21,12 @@ Summary = (
 )
 Description = Summary
 ShortDescription = Summary
+Classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: BSD License",
+    "Programming Language :: Python",
+]
 
 with open('requirements.txt') as fd:
     needed = fd.readlines()
@@ -30,7 +34,7 @@ with open('requirements.txt') as fd:
 with open('test-requirements.txt') as fd:
     test_needed = fd.readlines()
 
-test_suite = 'nozama.cloudsearch.service.tests'
+test_suite = 'tests'
 
 EagerResources = [
     'nozama',
@@ -50,22 +54,15 @@ EntryPoints = """
 """
 
 setup(
-    url=ProjectUrl,
     name=Name,
-    zip_safe=False,
     version=Version,
     author=Author,
     author_email=AuthorEmail,
     description=ShortDescription,
     long_description=Description,
-    classifiers=[
-        "Programming Language :: Python",
-        "Framework :: Pylons",
-        "Topic :: Internet :: WWW/HTTP",
-        "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
-    ],
-    keywords='web wsgi bfg pylons pyramid',
+    url=ProjectUrl,
     license=License,
+    classifiers=Classifiers,
     scripts=ProjectScripts,
     install_requires=needed,
     tests_require=test_needed,

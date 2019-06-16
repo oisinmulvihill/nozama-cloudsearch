@@ -27,7 +27,7 @@ Locally hosted docs:
 Why?
 ~~~~
 
-I wanted to test a platfom that was hardcoded to use only cloudsearch. There
+I wanted to test a platform that was hardcoded to use only Cloudsearch. There
 was no way I could change the code in question. I was also unable to get other
 instances due to budget constraints. I looked around for alternatives and found
 none I could get working on CentOS.
@@ -41,7 +41,7 @@ To get up and going on a system with MongoDB running do:
 .. code-block:: sh
 
     # create a quick environment to install into:
-    mkvirtualenv -p python 3 nozama
+    mkvirtualenv -p python3.7 nozama
 
     # activate en
     workon nozama
@@ -78,49 +78,49 @@ command line.
     # Assumes: serving on 0.0.0.0:15808 view at http://127.0.0.1:15808
 
     # A quick check of the version and that the service is running:
-    curl -H "Content-Type: application/json" http://localhost:15808/ping
-    {"status": "ok", "version": "1.1.0", "name": "nozama-cloudsearch"}
+    curl http://localhost:15808/ping
+    {"status": "ok", "name": "nozama-cloudsearch", "version": "2.0.0"}
 
     # Now check what documents are present / removed:
-    curl -H "Content-Type: application/json" http://localhost:15808/dev/documents
+    curl http://localhost:15808/dev/documents
     {"documents_removed": [], "documents": []}
 
     # Add a document using the batch upload SDF:
     curl -X POST -H "Content-Type: application/json" http://localhost:15808/2013-08-22/documents/batch -d '[{"lang": "en", "fields": {"name": "bob"}, "version": 1376497963, "type": "add", "id": 1246}]'
-    {"status": "ok", "warning": "", "adds": 1, "error": "", "deletes": 0}
+    {"status": "ok", "adds": 1, "deletes": 0, "error": "", "warning": ""}
 
     # Check the document is there:
-    curl -H "Content-Type: application/json" http://localhost:15808/dev/documents
-    {"documents_removed": [], "documents": [{"lang": "en", "fields": {"name": "bob"}, "_id": "1246", "version": "1376497963", "id": "1246"}]}
+    curl http://localhost:15808/dev/documents
+    {"documents": [{"_id": "1246", "lang": "en", "fields": {"name": "bob"}, "version": "1376497963", "id": "1246"}], "documents_removed": []}
 
     # Try searching for the document:
-    curl -H "Content-Type: application/json" http://localhost:15808/2013-08-22/search?q=bob
-    {"info": {"rid": "5ac832321dd35dfe1f3151689ab019bac24f5e2acf4d5f9f46516329988c3967109f3ae0ba59b345", "cpu-time-ms": 0, "time-ms": 2}, "hits": {"found": 1, "hit": [{"id": "1246"}], "start": 0}, "match-expr": "(label 'bob')", "rank": "-text_relevance"}
+    curl http://localhost:15808/2013-08-22/search?q=bob
+    {"rank": "-text_relevance", "match-expr": "(label 'bob')", "hits": {"found": 1, "start": 0, "hit": [{"id": "1246", "fields": {"name": "bob"}}]}, "info": {"rid": "47e87151546d5a349d7bf9b60eee0ebdf74783422a2e08cad0b9348e3ee3ef04eb198715bbe4e353", "time-ms": 5, "cpu-time-ms": 0}}
 
-    curl -H "Content-Type: application/json" http://localhost:15808/2013-08-22/search?q=somethingnotpresent
-    {"info": {"rid": "71b70eba393d9f79858a1e09d1cf8e1a337c4d3f954631babdc6de891e202d5416ff699e85fa76ba", "cpu-time-ms": 0, "time-ms": 0}, "hits": {"found": 0, "hit": [], "start": 0}, "match-expr": "(label 'somethingnotpresent')", "rank": "-text_relevance"}
+    curl http://localhost:15808/2013-08-22/search?q=somethingnotpresent
+    {"rank": "-text_relevance", "match-expr": "(label 'somethingnotpresent')", "hits": {"found": 0, "start": 0, "hit": []}, "info": {"rid": "869d2b07c1e47a55ab1cb4cd615953333e52d886112e916ed7fa447355f5a518b1c16bbcbf40cb7e", "time-ms": 5, "cpu-time-ms": 0}}
 
     # Remove the document in another batch update:
     curl -X POST -H "Content-Type: application/json" http://localhost:15808/2013-08-22/documents/batch -d '[{"version": 1376497963, "type": "delete", "id": 1246}]'
-    {"status": "ok", "warning": "", "adds": 0, "error": "", "deletes": 1}
+    {"status": "ok", "adds": 0, "deletes": 1, "error": "", "warning": ""}
 
     # Check what was removed:
-    curl -H "Content-Type: application/json" http://localhost:15808/dev/documents
-    {"documents_removed": [{"lang": "en", "fields": {"name": "bob"}, "_id": "1246", "version": "1376497963", "id": "1246"}], "documents": []}
+    curl http://localhost:15808/dev/documents
+    {"documents": [], "documents_removed": [{"_id": "1246", "lang": "en", "fields": {"name": "bob"}, "version": "1376497963", "id": "1246"}]}
 
     # Empty out all stored content:
-    curl -X DELETE -H "Content-Type: application/json" http://localhost:15808/dev/documents
-    {"status": "ok", "message": "Documents Removed OK.", "traceback": "", "error": ""}
+    curl -X DELETE http://localhost:15808/dev/documents
+    {"status": "ok", "message": "Documents Removed OK.", "error": "", "traceback": ""}
 
     # Check there should now be nothing there:
-    curl -H "Content-Type: application/json" http://localhost:15808/dev/documents
-    {"documents_removed": [], "documents": []}
+    curl http://localhost:15808/dev/documents
+    {"documents": [], "documents_removed": []}
 
 
 Development
 -----------
 
-I develop and maintain project on Mac OSX. I have install docker-composer, docker and python3 using brew. I use make to aid development and release. I've migrated the project from Python2 over to Python 3.
+I develop and maintain project on Mac OSX. I have install docker-composer, docker, virtualenvwrappers and Python3 using brew. I use "make" to aid development.
 
 .. code-block:: sh
 
@@ -137,6 +137,35 @@ I develop and maintain project on Mac OSX. I have install docker-composer, docke
     make up
 
 
+Contributing and Release Process
+--------------------------------
+
+Submit a pull request with tests if possible. I'll review, test and usually approve. All tests must pass. I run against Python3.7 nowadays. I will then increment the version, add attribute and then release to pypi if all is good.
+
+Help Oisin remember the release process::
+
+  # clean env for release:
+  mkvirtualenv --clear -p python3.7 nozama
+
+  # setup and run all tests:
+  #
+  # make sure mongo and elasticsearch are running:
+  make up
+
+  # run all unit and acceptance tests
+  make clean test
+
+  # Build and release to test.pypi.org first:
+  make test_pypi_release
+
+  # On success
+  twine upload dist/*
+
+  # Commit any changes and tag the release
+  git tag X.Y.Z
+
+  # Docker Release
+
 
 
 Versions
@@ -145,7 +174,17 @@ Versions
 2.0.0
 ~~~~~
 
-Migrated to Python 3 and refactored code into a single project. I've unpinned the project dependancies and all tests pass.
+Updated the project after noticing lots of people still appear to use it. I've updated it to reflect my current thinking on building REST APIs and how they are packaged, developed and released.
+
+Changes:
+
+- REST API remains the same however searching now works.
+- Migrated to Python 3.
+- Refactor the project into a single python package making it easier to work on and contribute to.
+- Development is now assisted using docker compose to manage Mongo and ElasticSearch dependancies.
+- I now produce the "offical" nozama-cloudsearch container as part of my release process.
+- Unpinned the python dependancies and moved to using requirements files for production and testing requirements.
+
 
 1.2.0
 ~~~~~

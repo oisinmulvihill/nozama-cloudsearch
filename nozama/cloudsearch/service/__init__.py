@@ -11,6 +11,7 @@ from pyramid.config import Configurator
 from nozama.cloudsearch.data import db
 from nozama.cloudsearch.service import docs
 from nozama.cloudsearch.service import restfulhelpers
+from nozama.cloudsearch.service import environ_settings
 
 
 def get_log(e=None):
@@ -25,16 +26,20 @@ def main(global_config, **settings):
     config = Configurator(settings=settings)
 
     cfg = dict(
-        db_name=settings.get("mongodb.dbname", "nozama-cloudsearch"),
-        port=int(settings.get("mongodb.port", 27017)),
-        host=settings.get("mongodb.host", "127.0.0.1"),
+        db_name=environ_settings.MONGO_DBNAME(),
+        port=environ_settings.MONGO_PORT(),
+        host=environ_settings.MONGO_HOST(),
     )
     log.debug("MongoDB config<{0}>".format(cfg))
     db.init(cfg)
 
     cfg = dict(
         es_endpoint=settings.get(
-            "elasticsearch.endpoint", "http://localhost:9200"
+            "elasticsearch.endpoint",
+            "http://{}:{}".format(
+                environ_settings.ELASTICSEARCH_HOST(),
+                environ_settings.ELASTICSEARCH_PORT()
+            )
         ),
     )
     log.debug("ElasticSearch config<{0}>".format(cfg))

@@ -72,11 +72,11 @@ def test_basic_search(logger, mongodb, elastic):
     # return all:
     results = document.search()
     assert results['hits']['found'] == 2
-    c = [{'id': '1247', 'fields': doc2}, {'id': '1246', 'fields': doc}]
-    import pdb; pdb.set_trace()
-    c.sort()
-    results['hits']['hit'].sort()
-    assert results['hits']['hit'] == c
+    expected = [
+        {'id': '1246', 'fields': doc},
+        {'id': '1247', 'fields': doc2},
+    ]
+    assert results['hits']['hit'] == expected
 
     # return a specific one:
     query = dict(q="pro")
@@ -84,12 +84,11 @@ def test_basic_search(logger, mongodb, elastic):
     assert results['hits']['found'] == 1
     assert results['hits']['hit'] == [{'id': '1246', 'fields': doc}]
 
+    # this should return two results for the text MyShoppe:
     query = dict(q="myshop")
     results = document.search(query)
     assert results['hits']['found'] == 2
-    c.sort()
-    results['hits']['hit'].sort()
-    assert results['hits']['hit'] == c
+    assert results['hits']['hit'] == expected
 
     query = dict(q="not in any string")
     results = document.search(query)

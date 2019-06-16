@@ -47,7 +47,7 @@ down:
 	docker-compose --project-name ${DOCKER_NAME} logs -t
 	docker-compose --project-name ${DOCKER_NAME} down --remove-orphans
 
-docker_test:
+docker_test: docker_build
 	docker run \
 		-u 0 \
 		--rm \
@@ -59,9 +59,12 @@ lint:
 	flake8 nozama
 
 test: test_install lint
-	coverage run -m py.test -s --junitxml=tests/report.xml tests
-	coverage report
-	coverage html
+	coverage run -m py.test -s --cov=nozama --junitxml=tests/report.xml tests
 
 run:
 	pserve development.ini
+
+test_pypi_release:
+	pip install twine
+	python setup.py sdist bdist_wheel
+	twine upload --repository-url https://test.pypi.org/legacy/ dist/*

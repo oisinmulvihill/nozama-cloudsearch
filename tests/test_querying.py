@@ -56,9 +56,13 @@ def test_searching(test_server):
     assert found[0]['version'] == '1376497963'
     assert found[0]['fields']['name'] == "Pro Quad Clamp Purple"
 
-    # It doesn't matter whats entered here as no filtering is done currently. I
-    # will implement searching behaviour as I need it for the apps I'm working
-    # with.
-    #
+    # Test search with something that won't be found:
     results = test_server.api.search('skate board')
-    assert len(results['hits']['found']) == 0
+    assert results['hits']['found'] == 0
+
+    # Now try a search which should return results:
+    results = test_server.api.search('Pro Quad')
+    assert results['hits']['found'] == 1
+    entry = results['hits']['hit'][0]
+    assert entry['id'] == '1246'
+    assert entry['fields']['name'] == "Pro Quad Clamp Purple"
