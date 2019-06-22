@@ -50,7 +50,7 @@ If you have docker and docker-compose on your system already then you can do:
     docker-compose -f nozama-cloudsearch.yaml ps
 
     curl http://localhost:15808/ping
-    {"status": "ok", "name": "nozama-cloudsearch", "version": "2.0.0"}
+    {"status": "ok", "name": "nozama-cloudsearch", "version": "2.0.2"}
 
     # To shutdown and stop all parts:
     docker-compose -f nozama-cloudsearch.yaml down
@@ -97,7 +97,7 @@ command line.
 
     # A quick check of the version and that the service is running:
     curl http://localhost:15808/ping
-    {"status": "ok", "name": "nozama-cloudsearch", "version": "2.0.0"}
+    {"status": "ok", "name": "nozama-cloudsearch", "version": "2.0.2"}
 
     # Now check what documents are present / removed:
     curl http://localhost:15808/dev/documents
