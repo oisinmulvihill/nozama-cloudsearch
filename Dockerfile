@@ -2,6 +2,7 @@
 FROM python:3-slim as build
 WORKDIR /app
 RUN apt-get update && apt-get install -y make
+ADD README.rst .
 ADD requirements.txt .
 ADD test-requirements.txt .
 ADD development.ini .

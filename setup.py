@@ -15,7 +15,7 @@ setuptools.setup(
     author="Oisin Mulvihill",
     author_email="oisin.mulvihilli@gmail.com",
     description="""
-    A REST service which implements the Amazon CloudSearch for local testing
+    A REST service which emulates Amazon CloudSearch for local testing.
     """.strip(),
     license="BSD",
     long_description=long_description,
