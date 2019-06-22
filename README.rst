@@ -33,6 +33,9 @@ none I could get working on CentOS.
 Quickstart
 ----------
 
+Docker
+~~~~~~
+
 If you have docker and docker-compose on your system already then you can do:
 
 .. code-block:: sh
@@ -53,6 +56,32 @@ This will download the Mongo and ElasticSearch containers which it depends on. O
 
 Success!
 
+Pypi.org
+~~~~~~~~
+
+Mongo and ElasticSearch need to be installed and running on the system. The default set up will use a database called 'nozama-cloudsearch'. See the development.ini configuration file for more details.
+
+.. code-block:: sh
+
+  # create a quick environment to install into:
+  mkvirtualenv -p python 3 nozama
+
+  # activate en
+  workon nozama
+
+  # Install from pypi:
+  pip install nozama-cloudsearch
+
+  # download the development configuration:
+  curl -O https://raw.github.com/oisinmulvihill/nozama-cloudsearch/master/nozama-cloudsearch/development.ini
+
+  # Run the service:
+  pserve development.ini
+
+  Starting server in PID 6845.
+  serving on 0.0.0.0:15808 view at http://127.0.0.1:15808
+
+  # Success! Press Ctrl-c to exit.
 
 Quick API Usage Example
 ~~~~~~~~~~~~~~~~~~~~~~~
