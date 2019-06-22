@@ -195,6 +195,11 @@ Try pip install and docker pull for the new package and container.
 Versions
 --------
 
+2.0.3
+~~~~~
+
+Fix broken package I hadn't noticed as I ran checks from the directory containing the nozama package.
+
 2.0.2
 ~~~~~
 
