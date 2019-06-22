@@ -1,9 +1,0 @@
-build
-dist
-.coverage
-syntax: glob
-*.log
-*~
-*.egg-info*
-*.pyc
-*.db

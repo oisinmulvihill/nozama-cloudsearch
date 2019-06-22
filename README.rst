@@ -194,6 +194,11 @@ Try pip install and docker pull for the new package and container.
 Versions
 --------
 
+2.0.2
+~~~~~
+
+Stripped out the old sphinx docs from the API. http://localhost:15808/docs/ now just shows a link to Github REST API examples. Strip out unused code in the client side code and other unused files.
+
 2.0.0 -> 2.0.1
 ~~~~~~~~~~~~~~
 

@@ -7,7 +7,7 @@ from setuptools import setup, find_packages
 
 Name = 'nozama-cloudsearch'
 ProjectUrl = "https://github.com/oisinmulvihill/nozama-cloudsearch"
-Version = "2.0.1"
+Version = "2.0.2"
 Author = 'Oisin Mulvihill'
 AuthorEmail = 'oisin.mulvihilli@gmail.com'
 Maintainer = 'Oisin Mulvihill'
