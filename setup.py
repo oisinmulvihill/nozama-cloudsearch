@@ -15,7 +15,7 @@ License = 'BSD'
 Summary = (
     'A REST service which implements the Amazon CloudSearch for local testing '
     'purposes. This is *not* intended as a replacement for Amazon CloudSearch.'
-    "See the http://nozama-cloudsearch.readthedocs.org/en/latest/ for more "
+    "See the https://github.com/oisinmulvihill/nozama-cloudsearch for more "
     "details. One handy benefit of using Nozama is it provides a way to "
     "migrate from Amazon CloudSearch to ElasticSearch."
 )

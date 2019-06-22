@@ -1,8 +1,12 @@
+# nozama-cloudsearch developer, build and release helpers
+#
+# Oisin mulvihill
+# 2019-06-22
 #
 GIT_COMMIT?=$(shell git rev-parse HEAD)
 DOCKER_NAME=nozama-cloudsearch
 DOCKER_IMAGE=${DOCKER_NAME}:${GIT_COMMIT}
-DOCKER_REPO=oisinmulvihill/nozama-elasticsearch
+DOCKER_REPO=oisinmulvihill/${DOCKER_NAME}
 
 clean:
 	rm -rf dist/ build/
@@ -54,20 +58,6 @@ docker_test: docker_build
 		${DOCKER_IMAGE}-test \
 		make test
 
-docker_run:
-	# Run the service image.
-	#
-	# Hostnames for mongo and elastic search are set in the "docker-compose.yaml".
-	# The test container joins the docker compose created network so that the
-	# hostnames
-	docker run \
-		--rm \
-		-p 15808:15808
-		-e MONGO_HOST=mongo \
-	  -e ELASTICSEARCH_HOST=elasticsearch \
-		--network=${DOCKER_NAME}_default \
-		${DOCKER_IMAGE}
-
 lint:
 	flake8 nozama
 
@@ -81,6 +71,9 @@ test_pypi_release:
 	pip install twine
 	python setup.py sdist bdist_wheel
 	twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+
+release_to_pypi:
+	twine upload dist/*
 
 docker_release:
 	# Push the latest container version which is tagged with the git commit. Then

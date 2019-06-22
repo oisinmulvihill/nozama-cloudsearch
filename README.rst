@@ -3,7 +3,6 @@ nozama-cloudsearch
 
 .. contents::
 
-
 A light weight implementation of Amazon's CloudSearch service for local testing
 purposes. This is meant for use in functional / acceptance testing of service
 which use cloud search.
@@ -14,15 +13,9 @@ data in a way you wouldn't normally be able to on Amazon CloudSearch.
 One handy benefit of using Nozama is it provides a way to migrate from Amazon
 CloudSearch to ElasticSearch.
 
-The running Nozama Service hosts its own docs generated from sphinx. I've also
-upload to readthedocs.org here:
+The "offical" docker container for this project is found here:
 
-* https://nozama-cloudsearch.readthedocs.org/en/latest/index.html
-
-Locally hosted docs:
-
-* http://localhost:15808/docs/index.html
-
+ - https://hub.docker.com/r/oisinmulvihill/nozama-cloudsearch
 
 Why?
 ~~~~
@@ -36,36 +29,20 @@ none I could get working on CentOS.
 Quickstart
 ----------
 
-To get up and going on a system with MongoDB running do:
+If you have docker and docker-compose on your system already then you can do:
 
 .. code-block:: sh
 
-    # create a quick environment to install into:
-    mkvirtualenv -p python3.7 nozama
+    # download the docker compose configuration:
+    curl -O https://raw.github.com/oisinmulvihill/nozama-cloudsearch/master/nozama-cloudsearch/nozama-cloudsearch.yaml
 
-    # activate en
-    workon nozama
+    docker-compose -f nozama-cloudsearch.yaml up
 
-    # Install from pypi:
-    easy_install nozama-cloudsearch
+    # Check it is running:
+    docker ps
 
-    # OR
-    pip install
+This will download the Mongo and ElasticSearch containers which it depends on.
 
-    # download the development configuration:
-    curl -O https://raw.github.com/oisinmulvihill/nozama-cloudsearch/master/nozama-cloudsearch/development.ini
-
-    # Run the service:
-    pserve development.ini
-
-    Starting server in PID 6845.
-    serving on 0.0.0.0:15808 view at http://127.0.0.1:15808
-
-    # Success! Press Ctrl-c to exit.
-
-MongoDB needs to be install and running on the system. The default set up will
-use a database called 'nozama-cloudsearch'. See the development.ini
-configuration file for more details.
 
 Quick API Usage Example
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -136,11 +113,14 @@ I develop and maintain project on Mac OSX. I have install docker-composer, docke
     # Start the project dependancies ElasticSearch and Mongo
     make up
 
+    # Run the API locally:
+    make up
+
 
 Contributing
 ------------
 
-Submit a pull request with tests if possible. I'll review, test and usually approve. All tests must pass. I run against Python3 nowadays. I will then increment the version, add attribute and then release to pypi if all is good.
+Submit a pull request with tests if possible. I'll review, test and usually approve. All tests must pass. I run against Python3 nowadays. I will then increment the version, add attribute and then release to https://hub.docker.com/r/oisinmulvihill/nozama-elasticsearch and ypi.org if all is good.
 
 Release Process
 ---------------
@@ -155,27 +135,26 @@ Help Oisin remember the release process::
   # make sure mongo and elasticsearch are running:
   make up
 
-  # run all unit and acceptance tests
-  make clean test
+  # run all unit and acceptance tests in a completely isolated environment.
+  make docker_test
 
   # Build and release to test.pypi.org first:
   make test_pypi_release
 
-  # On success
-  twine upload dist/*
+  # If all is good time to release to pypi.org
+  make release_to_pypi
 
-  # Commit any changes and tag the release
-  git tag X.Y.Z
+  # Now release the new docker container
+  make docker_release
 
-  # Docker Release
-
+Try pip install and docker pull for the new package and container.
 
 
 Versions
 --------
 
-2.0.0
-~~~~~
+2.0.0 -> 2.0.1
+~~~~~~~~~~~~~~
 
 Updated the project after noticing lots of people still appear to use it. I've updated it to reflect my current thinking on building REST APIs and how they are packaged, developed and released.
 
