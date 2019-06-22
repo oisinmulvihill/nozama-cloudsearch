@@ -69,7 +69,7 @@ run:
 
 test_pypi_release:
 	pip install twine
-	python setup.py sdist bdist_wheel
+	python3 setup.py sdist bdist_wheel
 	twine upload --repository-url https://test.pypi.org/legacy/ dist/*
 
 release_to_pypi:

@@ -1,10 +1,13 @@
 version: "3.4"
 services:
 
-  nozama-elasticsearch:
+  nozama-cloudsearch:
     image: oisinmulvihill/nozama-cloudsearch
     ports:
       - "15808:15808"
+    environment:
+      - MONGO_HOST=mongo
+      - ELASTICSEARCH_HOST=elasticsearch
     depends_on:
       - mongo
       - elasticsearch

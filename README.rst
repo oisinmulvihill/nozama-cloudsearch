@@ -43,18 +43,19 @@ If you have docker and docker-compose on your system already then you can do:
     # download the docker compose configuration:
     curl -O https://raw.githubusercontent.com/oisinmulvihill/nozama-cloudsearch/master/nozama-cloudsearch.yaml
 
-    docker-compose -f nozama-cloudsearch.yaml up
+    # Run in the background:
+    docker-compose -f nozama-cloudsearch.yaml up -d
 
-This will download the Mongo and ElasticSearch containers which it depends on. Once all services have been downloaded you can then start using the REST API:
+    # Check everything is up and running
+    docker-compose -f nozama-cloudsearch.yaml ps
 
-.. code-block:: sh
+    curl http://localhost:15808/ping
+    {"status": "ok", "name": "nozama-cloudsearch", "version": "2.0.0"}
 
-  $ curl http://localhost:15808/ping
-  {"status": "ok", "name": "nozama-cloudsearch", "version": "2.0.0"}
-  oisin@tarsis [~]
-  $
+    # To shutdown and stop all parts:
+    docker-compose -f nozama-cloudsearch.yaml down
 
-Success!
+This will download the Mongo and ElasticSearch containers which it depends on. Once all services have been downloaded you can then start using the REST API.
 
 Pypi.org
 ~~~~~~~~
@@ -212,7 +213,6 @@ Changes:
 - Development is now assisted using docker compose to manage Mongo and ElasticSearch dependancies.
 - I now produce the "offical" nozama-cloudsearch container as part of my release process.
 - Unpinned the python dependancies and moved to using requirements files for production and testing requirements.
-
 
 1.2.0
 ~~~~~
