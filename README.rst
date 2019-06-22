@@ -13,9 +13,13 @@ data in a way you wouldn't normally be able to on Amazon CloudSearch.
 One handy benefit of using Nozama is it provides a way to migrate from Amazon
 CloudSearch to ElasticSearch.
 
-The "offical" docker container for this project is found here:
+The "offical" docker container:
 
  - https://hub.docker.com/r/oisinmulvihill/nozama-cloudsearch
+
+The Github repository:
+
+  - https://hub.docker.com/r/oisinmulvihill/nozama-cloudsearch
 
 Why?
 ~~~~
@@ -131,30 +135,31 @@ Submit a pull request with tests if possible. I'll review, test and usually appr
 Release Process
 ---------------
 
-Help Oisin remember the release process::
+Help Oisin remember the release process:
 
-  # clean env for release:
-  mkvirtualenv --clear -p python3.7 nozama
+.. code-block:: sh
 
-  # setup and run all tests:
-  #
-  # make sure mongo and elasticsearch are running:
-  make up
+    # clean env for release:
+    mkvirtualenv --clear -p python3.7 nozama
 
-  # run all unit and acceptance tests in a completely isolated environment.
-  make docker_test
+    # setup and run all tests:
+    #
+    # make sure mongo and elasticsearch are running:
+    make up
 
-  # Build and release to test.pypi.org first:
-  make test_pypi_release
+    # run all unit and acceptance tests in a completely isolated environment.
+    make docker_test
 
-  # If all is good time to release to pypi.org
-  make release_to_pypi
+    # Build and release to test.pypi.org first:
+    make test_pypi_release
 
-  # Now release the new docker container
-  make docker_release
+    # If all is good time to release to pypi.org
+    make release_to_pypi
+
+    # Now release the new docker container
+    make docker_release
 
 Try pip install and docker pull for the new package and container.
-
 
 Versions
 --------
