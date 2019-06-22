@@ -3,10 +3,6 @@ nozama-cloudsearch
 
 .. contents::
 
-
-Introduction
-------------
-
 A light weight implementation of Amazon's CloudSearch service for local testing
 purposes. This is meant for use in functional / acceptance testing of service
 which use cloud search.
@@ -26,7 +22,7 @@ The Github repository:
   - https://hub.docker.com/r/oisinmulvihill/nozama-cloudsearch
 
 Why?
-~~~~
+----
 
 I wanted to test a platform that was hardcoded to use only Cloudsearch. There
 was no way I could change the code in question. I was also unable to get other
