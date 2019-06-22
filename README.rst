@@ -3,6 +3,10 @@ nozama-cloudsearch
 
 .. contents::
 
+
+Introduction
+------------
+
 A light weight implementation of Amazon's CloudSearch service for local testing
 purposes. This is meant for use in functional / acceptance testing of service
 which use cloud search.
@@ -73,7 +77,7 @@ Mongo and ElasticSearch need to be installed and running on the system. The defa
   pip install nozama-cloudsearch
 
   # download the development configuration:
-  curl -O https://raw.github.com/oisinmulvihill/nozama-cloudsearch/master/nozama-cloudsearch/development.ini
+  curl -O https://raw.githubusercontent.com/oisinmulvihill/nozama-cloudsearch/master/development.ini
 
   # Run the service:
   pserve development.ini
@@ -81,10 +85,11 @@ Mongo and ElasticSearch need to be installed and running on the system. The defa
   Starting server in PID 6845.
   serving on 0.0.0.0:15808 view at http://127.0.0.1:15808
 
-  # Success! Press Ctrl-c to exit.
+Success!
+
 
 Quick API Usage Example
-~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------
 
 If you have a running service you can try the following using curl from the
 command line.
