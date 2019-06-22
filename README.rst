@@ -34,14 +34,20 @@ If you have docker and docker-compose on your system already then you can do:
 .. code-block:: sh
 
     # download the docker compose configuration:
-    curl -O https://raw.github.com/oisinmulvihill/nozama-cloudsearch/master/nozama-cloudsearch/nozama-cloudsearch.yaml
+    curl -O https://raw.githubusercontent.com/oisinmulvihill/nozama-cloudsearch/master/nozama-cloudsearch.yaml
 
     docker-compose -f nozama-cloudsearch.yaml up
 
-    # Check it is running:
-    docker ps
+This will download the Mongo and ElasticSearch containers which it depends on. Once all services have been downloaded you can then start using the REST API:
 
-This will download the Mongo and ElasticSearch containers which it depends on.
+.. code-block:: sh
+
+  $ curl http://localhost:15808/ping
+  {"status": "ok", "name": "nozama-cloudsearch", "version": "2.0.0"}
+  oisin@tarsis [~]
+  $
+
+Success!
 
 
 Quick API Usage Example
