@@ -137,10 +137,13 @@ I develop and maintain project on Mac OSX. I have install docker-composer, docke
     make up
 
 
-Contributing and Release Process
---------------------------------
+Contributing
+------------
 
-Submit a pull request with tests if possible. I'll review, test and usually approve. All tests must pass. I run against Python3.7 nowadays. I will then increment the version, add attribute and then release to pypi if all is good.
+Submit a pull request with tests if possible. I'll review, test and usually approve. All tests must pass. I run against Python3 nowadays. I will then increment the version, add attribute and then release to pypi if all is good.
+
+Release Process
+---------------
 
 Help Oisin remember the release process::
 

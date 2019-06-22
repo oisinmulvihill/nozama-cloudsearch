@@ -112,32 +112,45 @@ def logger(request):
 
 
 @pytest.fixture(scope='function')
-def mongodb(request):
+def mongodb(logger, request):
     """Set up a mongo connection reset and ready to roll.
     """
     from nozama.cloudsearch.data import db
-    db.init(dict(db_name='unittesting-db'))
+    from nozama.cloudsearch.service import environ_settings
+    cfg = dict(
+        db_name='unittesting-db',
+        port=environ_settings.MONGO_PORT(),
+        host=environ_settings.MONGO_HOST(),
+    )
+    logger.debug("MongoDB config<{0}>".format(cfg))
+    db.init(cfg)
     db.db().hard_reset()
 
 
 @pytest.fixture(scope='function')
-def elastic(request):
+def elastic(logger, request):
     """Set up a elasticsearch connection reset and ready to roll.
 
     This will attempt to connect to the default elasticsearch instance
     on http://localhost:9200. Its not configurable yet.
 
     """
-    from nozama.cloudsearch.data.db import init_es, get_es
-    init_es(dict(es_namespace="ut_"))
-    get_es().hard_reset()
+    from nozama.cloudsearch.data import db
+    from nozama.cloudsearch.service import environ_settings
+    cfg = dict(es_endpoint="http://{}:{}".format(
+        environ_settings.ELASTICSEARCH_HOST(),
+        environ_settings.ELASTICSEARCH_PORT()
+    ))
+    logger.debug("ElasticSearch config<{0}>".format(cfg))
+    db.init_es(cfg)
+    db.get_es().hard_reset()
 
 
 class ServerRunner(object):
     """Start/Stop the testserver for web testing purposes.
 
     """
-    def __init__(self, port=None, configfile=None, interface='localhost'):
+    def __init__(self, port=None, configfile=None, interface='127.0.0.1'):
         """
         """
         self.log = logging.getLogger("ServerRunner")
