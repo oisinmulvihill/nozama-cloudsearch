@@ -13,13 +13,13 @@ data in a way you wouldn't normally be able to on Amazon CloudSearch.
 One handy benefit of using Nozama is it provides a way to migrate from Amazon
 CloudSearch to ElasticSearch.
 
-The "offical" docker container:
+The "official" docker container:
 
  - https://hub.docker.com/r/oisinmulvihill/nozama-cloudsearch
 
 The Github repository:
 
-  - https://hub.docker.com/r/oisinmulvihill/nozama-cloudsearch
+  - https://github.com/oisinmulvihill/nozama-cloudsearch
 
 Why?
 ----
@@ -30,8 +30,8 @@ instances due to budget constraints. I looked around for alternatives and found
 none I could get working on CentOS.
 
 
-Quickstart
-----------
+Quick-start
+-----------
 
 Docker
 ~~~~~~
