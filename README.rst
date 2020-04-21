@@ -155,7 +155,7 @@ I develop and maintain project on Mac OSX. I have install docker-composer, docke
     make up
 
     # Run the API locally:
-    make up
+    make run
 
 
 Contributing
