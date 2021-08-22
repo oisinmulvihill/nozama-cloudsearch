@@ -195,6 +195,11 @@ Try pip install and docker pull for the new package and container.
 Versions
 --------
 
+2.0.4
+~~~~~
+
+Bug fix contributed by https://github.com/lilsweetcaligula for issue https://github.com/oisinmulvihill/nozama-cloudsearch/issues/15.
+
 2.0.3
 ~~~~~
 
