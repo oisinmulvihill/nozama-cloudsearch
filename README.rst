@@ -97,7 +97,7 @@ command line.
 
     # A quick check of the version and that the service is running:
     curl http://localhost:15808/ping
-    {"status": "ok", "name": "nozama-cloudsearch", "version": "2.0."}
+    {"status": "ok", "name": "nozama-cloudsearch", "version": "2.0.4"}
 
     # Now check what documents are present / removed:
     curl http://localhost:15808/dev/documents
