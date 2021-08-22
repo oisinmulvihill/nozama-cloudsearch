@@ -103,8 +103,7 @@ def remove_from_elasticsearch(doc):
 
     result = es.conn.delete(
         es.index,
-        es.doc_type,
-        id=doc['_id']
+        doc['id']
     )
     es.conn.indices.refresh(index=es.index)
 
@@ -151,15 +150,12 @@ def search(query={}):
     conn = db().conn()
     for i in results['hits']['hits']:
         query = dict(_id=i['_id'])
-        doc = conn.documents.find_one(query)
-
-        if doc is not None:
-            fields = doc['fields']
-            if formatType == u'sdk':
-                for key, value in fields.items():
-                    if not isinstance(value, list):
-                        fields[key] = [value]
-            hit.append({'id': i['_id'], 'fields': fields})
+        fields = conn.documents.find_one(query)['fields']
+        if formatType == u'sdk':
+            for key, value in fields.items():
+                if not isinstance(value, list):
+                    fields[key] = [value]
+        hit.append({'id': i['_id'], 'fields': fields})
 
     rc = {
         "rank": "-text_relevance",
@@ -235,17 +231,17 @@ def load(docs_to_load):
             add_to_elasticsearch(doc)
 
     if to_remove:
-        doc_ids = [doc['id'] for doc in to_remove]
-
         # Recover the documents that have been removed in this upload and
         # store it on the removed list.
-        for doc_id in doc_ids:
+        for doc in to_remove:
+            doc_id = doc['id']
             query = dict(_id=doc_id)
             found = conn.documents.find_one(query)
             if found:
                 log.debug("adding to remove store: '{0}'".format(query))
                 conn.documents_removed.insert(found)
                 conn.documents.remove(query)
+                remove_from_elasticsearch(doc)
 
     rc = dict(
         status='ok',
