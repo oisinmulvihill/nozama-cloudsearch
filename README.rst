@@ -50,7 +50,7 @@ If you have docker and docker-compose on your system already then you can do:
     docker-compose -f nozama-cloudsearch.yaml ps
 
     curl http://localhost:15808/ping
-    {"status": "ok", "name": "nozama-cloudsearch", "version": "2.0.3"}
+    {"status": "ok", "name": "nozama-cloudsearch", "version": "2.0.4"}
 
     # To shutdown and stop all parts:
     docker-compose -f nozama-cloudsearch.yaml down
@@ -97,7 +97,7 @@ command line.
 
     # A quick check of the version and that the service is running:
     curl http://localhost:15808/ping
-    {"status": "ok", "name": "nozama-cloudsearch", "version": "2.0.3"}
+    {"status": "ok", "name": "nozama-cloudsearch", "version": "2.0."}
 
     # Now check what documents are present / removed:
     curl http://localhost:15808/dev/documents
@@ -205,7 +205,7 @@ Bug fix contributed by https://github.com/lilsweetcaligula for issue https://git
 
 Bugfix to add in __init__.py files. I had forgotten to do this after I ditched the namespace packaging.
 
-2.0.3
+2.0.2
 ~~~~~
 
 Stripped out the old sphinx docs from the API. http://localhost:15808/docs/ now just shows a link to Github REST API examples. Strip out unused code in the client side code and other unused files.
