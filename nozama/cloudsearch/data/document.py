@@ -103,8 +103,7 @@ def remove_from_elasticsearch(doc):
 
     result = es.conn.delete(
         es.index,
-        es.doc_type,
-        id=doc['_id']
+        doc['id']
     )
     es.conn.indices.refresh(index=es.index)
 
@@ -232,17 +231,17 @@ def load(docs_to_load):
             add_to_elasticsearch(doc)
 
     if to_remove:
-        doc_ids = [doc['id'] for doc in to_remove]
-
         # Recover the documents that have been removed in this upload and
         # store it on the removed list.
-        for doc_id in doc_ids:
+        for doc in to_remove:
+            doc_id = doc['id']
             query = dict(_id=doc_id)
             found = conn.documents.find_one(query)
             if found:
                 log.debug("adding to remove store: '{0}'".format(query))
                 conn.documents_removed.insert(found)
                 conn.documents.remove(query)
+                remove_from_elasticsearch(doc)
 
     rc = dict(
         status='ok',

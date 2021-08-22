@@ -117,7 +117,7 @@ class ElasticSearchHelper(object):
         self.document_uri = urljoin(self.base_uri, self.document_path)
         self.search_uri = urljoin(self.base_uri, self.search_path)
         self.log.info(
-            "document_uri is '{0}' search_uri is '{0}'".format(
+            "document_uri is '{0}' search_uri is '{1}'".format(
                 self.document_uri,
                 self.search_uri
             )
