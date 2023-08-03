@@ -1,5 +1,5 @@
-pymongo
-elasticsearch
+pymongo~=3.0
+elasticsearch~=7.0
 decorator
 paste
 formencode
