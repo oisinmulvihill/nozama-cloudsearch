@@ -199,7 +199,7 @@ Versions
 ~~~~~
 
 Merged in PR19 from YUKI Kaoru (https://github.com/yukikaoru): "The format of the documents/batch response has been adjusted to the reference."
-- https://github.com/oisinmulvihill/nozama-cloudsearch/pull/19
+https://github.com/oisinmulvihill/nozama-cloudsearch/pull/19
 
 
 2.0.5
