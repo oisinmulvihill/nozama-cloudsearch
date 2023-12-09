@@ -11,7 +11,7 @@ with open('test-requirements.txt') as fd:
 
 setuptools.setup(
     name="nozama-cloudsearch",
-    version="2.0.4",
+    version="2.0.5",
     author="Oisin Mulvihill",
     author_email="oisin.mulvihilli@gmail.com",
     description="""

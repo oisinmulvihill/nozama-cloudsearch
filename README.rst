@@ -195,6 +195,16 @@ Try pip install and docker pull for the new package and container.
 Versions
 --------
 
+2.0.5
+~~~~~
+
+Merged in PR19 from YUKI Kaoru (https://github.com/yukikaoru):
+
+"The format of the documents/batch response has been adjusted to the reference."
+
+- https://github.com/oisinmulvihill/nozama-cloudsearch/pull/19
+
+
 2.0.4
 ~~~~~
 
