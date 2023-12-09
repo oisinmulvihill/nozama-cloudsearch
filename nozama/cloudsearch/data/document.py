@@ -189,16 +189,16 @@ def load(docs_to_load):
     .. code-block:: python
 
         rc = dict(
-            status='ok',
+            status='success',
             adds=len(to_load),
             deletes=len(to_remove),
-            error='',
-            warning='',
+            errors=[],
+            warnings=[],
         )
 
     Reference:
-      * http://docs.aws.amazon.com/cloudsearch/latest/developerguide/\
-            DocumentsBatch.JSON.html#DocumentsBatch.JSON.ResponseProperties
+      * https://docs.aws.amazon.com/cloudsearch/latest/developerguide/\
+        documents-batch-resource.html#documents-batch-json-response-properties
 
     """
     log = get_log('load')
@@ -244,11 +244,11 @@ def load(docs_to_load):
                 remove_from_elasticsearch(doc)
 
     rc = dict(
-        status='ok',
+        status='success',
         adds=len(to_load),
         deletes=len(to_remove),
-        error='',
-        warning='',
+        errors=[],
+        warnings=[],
     )
 
     return rc

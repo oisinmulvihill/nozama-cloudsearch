@@ -66,7 +66,7 @@ def test_basic_search(logger, mongodb, elastic):
     ]
 
     rc = document.load(example_sdf)
-    assert rc['status'] == 'ok'
+    assert rc['status'] == 'success'
     assert rc['adds'] == 2
 
     # return all:

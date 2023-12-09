@@ -36,11 +36,11 @@ def test_document_add(logger, elastic, mongodb):
 
     rc = document.load(example_sdf)
 
-    assert rc['status'] == 'ok'
+    assert rc['status'] == 'success'
     assert rc['adds'] == 1
     assert rc['deletes'] == 0
-    assert rc['error'] == ''
-    assert rc['warning'] == ''
+    assert rc['errors'] == []
+    assert rc['warnings'] == []
 
     found = document.all()
 
@@ -71,11 +71,11 @@ def test_remove_on_emtpy(logger, mongodb):
     ]
     rc = document.load(example_sdf)
 
-    assert rc['status'] == 'ok'
+    assert rc['status'] == 'success'
     assert rc['adds'] == 0
     assert rc['deletes'] == 1
-    assert rc['error'] == ''
-    assert rc['warning'] == ''
+    assert rc['errors'] == []
+    assert rc['warnings'] == []
 
     found = document.all()
     assert len(found) == 0
@@ -118,11 +118,11 @@ def test_add_remove(logger, mongodb):
 
     rc = document.load(example_add_sdf)
 
-    assert rc['status'] == 'ok'
+    assert rc['status'] == 'success'
     assert rc['adds'] == 1
     assert rc['deletes'] == 0
-    assert rc['error'] == ''
-    assert rc['warning'] == ''
+    assert rc['errors'] == []
+    assert rc['warnings'] == []
 
     report = document.report()
 
@@ -142,11 +142,11 @@ def test_add_remove(logger, mongodb):
     ]
     rc = document.load(example_remove_sdf)
 
-    assert rc['status'] == 'ok'
+    assert rc['status'] == 'success'
     assert rc['adds'] == 0
     assert rc['deletes'] == 1
-    assert rc['error'] == ''
-    assert rc['warning'] == ''
+    assert rc['errors'] == []
+    assert rc['warnings'] == []
 
     found = document.all()
     assert len(found) == 0
@@ -199,11 +199,11 @@ def test_remove_then_search(logger, mongodb):
 
     rc = document.load(example_add_sdf)
 
-    assert rc['status'] == 'ok'
+    assert rc['status'] == 'success'
     assert rc['adds'] == 1
     assert rc['deletes'] == 0
-    assert rc['error'] == ''
-    assert rc['warning'] == ''
+    assert rc['errors'] == []
+    assert rc['warnings'] == []
 
     report = document.report()
 
@@ -223,11 +223,11 @@ def test_remove_then_search(logger, mongodb):
     ]
     rc = document.load(example_remove_sdf)
 
-    assert rc['status'] == 'ok'
+    assert rc['status'] == 'success'
     assert rc['adds'] == 0
     assert rc['deletes'] == 1
-    assert rc['error'] == ''
-    assert rc['warning'] == ''
+    assert rc['errors'] == []
+    assert rc['warnings'] == []
 
     found = document.all()
     assert len(found) == 0

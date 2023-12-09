@@ -105,7 +105,7 @@ command line.
 
     # Add a document using the batch upload SDF:
     curl -X POST -H "Content-Type: application/json" http://localhost:15808/2013-08-22/documents/batch -d '[{"lang": "en", "fields": {"name": "bob"}, "version": 1376497963, "type": "add", "id": 1246}]'
-    {"status": "ok", "adds": 1, "deletes": 0, "error": "", "warning": ""}
+    {"status": "success", "adds": 1, "deletes": 0, "errors": [], "warnings": []}
 
     # Check the document is there:
     curl http://localhost:15808/dev/documents
@@ -120,7 +120,7 @@ command line.
 
     # Remove the document in another batch update:
     curl -X POST -H "Content-Type: application/json" http://localhost:15808/2013-08-22/documents/batch -d '[{"version": 1376497963, "type": "delete", "id": 1246}]'
-    {"status": "ok", "adds": 0, "deletes": 1, "error": "", "warning": ""}
+    {"status": "success", "adds": 0, "deletes": 1, "errors": [], "warnings": []}
 
     # Check what was removed:
     curl http://localhost:15808/dev/documents
